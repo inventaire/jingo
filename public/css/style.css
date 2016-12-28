@@ -52,6 +52,10 @@ p.user {
   height: auto;
 }
 
+#content img.inline{
+  display: inline-block;
+}
+
 #content.show li {
   line-height: 1.92;
 }
