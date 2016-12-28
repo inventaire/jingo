@@ -3,4 +3,5 @@ config.yaml
 config.yml
 data/*
 db
+etc/jingo.service
 
