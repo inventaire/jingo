@@ -4,7 +4,7 @@ PROJECT_ROOT=$(pwd)
 NODE_VERSION=$(node -v)
 HOME_FOLDER=~
 
-cat $PROJECT_ROOT/etc/jingo.original.service |
+cat $PROJECT_ROOT/etc/jingo.base.service |
  sed "s@PROJECT_ROOT@$PROJECT_ROOT@g" |
  sed "s@NODE_VERSION@$NODE_VERSION@g" |
  sed "s@HOME_FOLDER@$HOME_FOLDER@g" |
