@@ -18,8 +18,8 @@ block content
           td
             input(type="checkbox", value="#{item.hashRef}")
           td
-            if item.email
-              img(src=gravatar().url("#{item.email}", {s:16}))
+            if item.picture
+              img(src=invImgSrc("#{item.picture}", 16))
               |&nbsp;
             |#{item.author}
           td #{item.relDate}

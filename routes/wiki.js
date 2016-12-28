@@ -5,6 +5,7 @@ var renderer = require('../lib/renderer')
 var models = require('../lib/models')
 var corsEnabler = require('../lib/cors-enabler')
 var app = require('../lib/app').getInstance()
+var log = require('../lib/log')
 
 var proxyPath = app.locals.config.getProxyPath()
 

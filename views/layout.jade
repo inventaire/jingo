@@ -35,8 +35,8 @@ include mixins/links
                   +anchor('/login?destination', 'logged in')#login(title='Access login page')
               else
                 p.user
-                  if user.email && user.email != 'jingouser'
-                    img(src=gravatar().url("#{user.email}", {s:24}))
+                  if user.picture
+                    img(src=invImgSrc("#{user.picture}", 24))
                   b &nbsp;#{user.displayName}&nbsp;
                   +anchor('/logout')(title='Become anonymous')
                     i.icon.ion-power
