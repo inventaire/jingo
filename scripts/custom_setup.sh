@@ -7,7 +7,7 @@ DB_FOLDER="$PROJECT_ROOT/db"
 mkdir $DATA_FOLDER $DB_FOLDER
 cd $DATA_FOLDER
 git init
-git remote add origin add git@github.com:inventaire/inventaire-wiki.git
+git remote add origin git@github.com:inventaire/inventaire-wiki.git
 # If it is the first time, `git push origin master` to init
 # the remote master branch
 
