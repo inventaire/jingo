@@ -4,10 +4,40 @@
 	}
 }
 
-body {
+@font-face {
+ font-family: 'Alegreya';
+ font-weight: normal;
+ src: url('http://localhost:3006/public/fonts/Alegreya-Regular.ttf');
+}
+
+@font-face {
+ font-family: 'Alegreya';
+ font-weight: bold;
+ src: url('http://localhost:3006/public/fonts/Alegreya-Bold.ttf');
+}
+
+@font-face {
+ font-family: 'Alegreya Sans';
+ font-weight: normal;
+ src: url('http://localhost:3006/public/fonts/AlegreyaSans-Regular.ttf');
+}
+
+@font-face {
+ font-family: 'Alegreya Sans';
+ font-weight: bold;
+ src: url('http://localhost:3006/public/fonts/AlegreyaSans-Bold.ttf');
+}
+
+body{
   padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
-  font-family: "Ubuntu";
+  font-family: 'Alegreya Sans';
   background-image: url(../img/bodybg.png);
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-weight: bold;
+  font-family: 'Alegreya';
 }
 
 a[href^="https://"],
@@ -128,7 +158,6 @@ dl.search-results dt {
 h2,
 h1 {
   border-bottom: 1px solid #ddd;
-  font-family:"Ubuntu Condensed";
   margin: 0 0 20px 0;
 }
 
@@ -453,14 +482,14 @@ ul.doc-list > li .message {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   position: absolute;
-  width: 35px;
-  height: 14px;
+  width: 40px;
+  height: 16px;
   right: 0;
   left: 75%;
   color: white;
   top: 62px;
   text-align: center;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 12px;
   margin: 0;
 }
