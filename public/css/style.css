@@ -29,7 +29,6 @@
 }
 
 body{
-  padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
   font-family: 'Alegreya Sans';
   background-image: url(../img/bodybg.png);
   font-size: 16px;
@@ -59,9 +58,8 @@ a.logout i {
 
 p.user {
   color: white;
-  padding: 8px 0 0;
-  margin-bottom: 0px;
-  margin-right: -20px;
+  padding-top: 5px;
+  margin-bottom: 0;
 }
 
 .username{
@@ -106,7 +104,7 @@ p.user {
 .lang-selector{
   position: absolute;
   top: 2.5em;
-  right: 0;
+  right: 1.5em;
 }
 
 .modal-body #content {
@@ -295,6 +293,10 @@ hr {
 
 /* Overrides Bootstrap */
 
+.navbar{
+  border-radius: 0;
+}
+
 .navbar-right {
   float: right;
 }
@@ -313,7 +315,10 @@ hr {
 }
 
 .navbar-brand {
+  font-size: 1.6em;
   white-space: nowrap;
+  font-family: 'Alegreya';
+  font-weight: bold;
 }
 
 .navbar-inverse {
@@ -664,7 +669,7 @@ a.btn-auth:hover {
 /*Small screens*/
 @media screen and (max-width: 768px) {
   body{
-    // give some room to the tool bar
+    /* give some room to the tool bar */
     padding-bottom: 1em;
   }
 
