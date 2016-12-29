@@ -64,6 +64,11 @@ p.user {
   margin-right: -20px;
 }
 
+.username{
+  font-weight: bold;
+  padding: 0.5em;
+}
+
 #main {
   background-color: white;
   box-shadow: 0 0 5px silver;
@@ -298,8 +303,7 @@ hr {
 }
 
 .navbar-brand {
-  overflow: hidden;
-  max-width: 60%;
+  white-space: nowrap;
 }
 
 .navbar-inverse {
@@ -439,14 +443,9 @@ ul.doc-list > li .message {
 
 .tools {
   position: fixed;
-  z-index: 4;
-  margin-top: -62px;
-  background-color: rgba(27,27,27,.3);
-  border: 1px solid gray;
-  padding: 0px 5px;
+  top: 0;
   right: 0;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  z-index: 1030;
 }
 
 .tools > ul {
@@ -475,23 +474,6 @@ ul.doc-list > li .message {
 .page-actions a.hover,
 .tools a:hover {
   color: #4183c4;
-}
-
-.tools-handle {
-  background-color: #4183c4;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  position: absolute;
-  width: 40px;
-  height: 16px;
-  right: 0;
-  left: 75%;
-  color: white;
-  top: 62px;
-  text-align: center;
-  font-size: 12px;
-  line-height: 12px;
-  margin: 0;
 }
 
 /* Needed for wideArea */
@@ -583,6 +565,10 @@ input#pageTitle {
   margin-bottom: 20px;
 }
 
+.search .form-control::-moz-placeholder{ color: #eee; }
+.search .form-control::-webkit-input-placeholder{ color: #eee; }
+.search .form-control:-ms-input-placeholder{ color: #eee; }
+
 .with-sidebar {
   background-color: rgba(255,255,255,0.5);
   padding: 10px;
@@ -661,7 +647,24 @@ a.btn-auth:hover {
   opacity: .9;
 }
 
-@media (min-width: 768px) {
+/*Small screens*/
+@media screen and (max-width: 768px) {
+  body{
+    // give some room to the tool bar
+    padding-bottom: 1em;
+  }
+
+  .tools{
+    top: auto;
+    bottom: 0;
+    background-color: rgba(27,27,27,.3);
+    padding: 0 5px 5px 5px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+}
+
+@media screen and (min-width: 768px) {
   body {
     padding-top: 60px;
   }
@@ -680,10 +683,19 @@ a.btn-auth:hover {
 
   .tools {
     right: 280px;
+    /* Centering vertically */
+    margin-top: -1px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
   }
+  .tools:hover{
+    opacity: 1;
+  }
+}
 
-  .tools-handle {
-    top: 41px;
-    left: 60%;
+/*Medium screens*/
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+  .tools {
+    right: 200px;
   }
 }

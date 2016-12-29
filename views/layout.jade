@@ -49,7 +49,7 @@ include mixins/links
                 p.user
                   if user.picture
                     img(src=invImgSrc("#{user.picture}", 24))
-                  b &nbsp;#{user.displayName}&nbsp;
+                  span.username #{user.displayName}
                   +anchor('/logout')(title='Become anonymous')
                     i.icon.ion-power
 
