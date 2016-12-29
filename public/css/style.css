@@ -31,14 +31,26 @@
 body{
   padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
   font-family: 'Alegreya Sans';
-  background-image: url(../img/bodybg.png);
+  background-image: url("https://inventaire.io/img/1600x1600/f3c063914d81996e3d262201d1e71c5e38212948.jpg");
+  background-size: cover;
+  background-position: center center;
   font-size: 16px;
+}
+
+.container:after{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(18, 52, 86, 0.5);
 }
 
 h1, h2, h3, h4, h5, h6{
   font-weight: bold;
   font-family: 'Alegreya';
 }
+
 
 a[href^="https://"],
 a[href^="http://"] {
