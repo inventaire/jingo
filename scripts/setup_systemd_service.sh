@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 
 PROJECT_ROOT=$(pwd)
 NODE_VERSION=$(node -v)

@@ -7,10 +7,11 @@
 Description=jingo
 
 [Service]
-ExecStart=HOME_FOLDER/.nvm/versions/node/NODE_VERSION/bin/node PROJECT_ROOT/jingo -c config-prod.yaml
+ExecStart=HOME_FOLDER/.nvm/versions/node/NODE_VERSION/bin/node PROJECT_ROOT/jingo -c config.yaml
 WorkingDirectory=PROJECT_ROOT/
 Environment=PATH=HOME_FOLDER/.nvm/versions/node/NODE_VERSION/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Environment=NODE_ENV=production
+Environment=SSH_AUTH_SOCK=/tmp/ssh-agent
 User=USERNAME
 Group=USERNAME
 Restart=always
