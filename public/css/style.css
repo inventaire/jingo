@@ -681,13 +681,16 @@ a.btn-auth:hover {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
   }
+
+  .lang-selector{
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-bottom: 1em;
+  }
 }
 
 @media screen and (min-width: 768px) {
-  body {
-    padding-top: 60px;
-  }
-
   p.user {
     margin-right: auto;
   }
