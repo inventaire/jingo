@@ -1,0 +1,13 @@
+# Script written to setup let's encrypt on the same VPS as wikidata-subset-search-engine
+# Supposes this was run before: https://github.com/inventaire/wikidata-subset-search-engine/blob/1f7cecbc8e55fe5669c42cf62e066269d9ddf5be/nginx/install
+
+sed -i 's/data/wiki/g' ~/wikidata-subset-search-engine/nginx/init-config
+sudo cp ~/wikidata-subset-search-engine/nginx/init-config /etc/nginx/sites-enabled/default
+sudo nginx -s reload
+
+/opt/letsencrypt/letsencrypt-auto certonly --webroot -w /var/www/html -d wiki.inventaire.io
+sudo openssl dhparam -out /etc/letsencrypt/live/wiki.inventaire.io/dhparams.pem 2048
+
+sed -i 's/wiki/data/g' ~/wikidata-subset-search-engine/nginx/init-config
+sudo cp ~/wikidata-subset-search-engine/nginx/config /etc/nginx/sites-enabled/default
+sudo nginx -s reload
