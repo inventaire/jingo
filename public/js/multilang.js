@@ -22,8 +22,7 @@
   var $content = $('#content')
   var parsedData = getParsedData()
 
-  updateContent(getDesiredLang())
-
+  updateContent(guessLang())
 
   // Helpers
 
@@ -51,7 +50,9 @@
   }
 
   function updateContentOnLangChange (event) {
-    updateContent(event.currentTarget.value)
+    var lang = event.currentTarget.value
+    setLastLang(lang)
+    updateContent(lang)
   }
 
   function getParsedData () {
@@ -106,8 +107,29 @@
     return metadata
   }
 
-  function getDesiredLang () {
-    return 'fr'
+  // Lang helpers
+
+  function guessLang () {
+    var browserLang = navigator.language || navigator.userLanguage
+    return getLastLang() || browserLang
+  }
+
+  function getLastLang () {
+    // Wrap it in a try/catch as some browser don't support it
+    try {
+      return window.localStorage.getItem('last-lang')
+    } catch (err) {
+      console.error('getLastLang err', err)
+    }
+  }
+
+  function setLastLang (lang) {
+    // Wrap it in a try/catch as some browser don't support it
+    try {
+      window.localStorage.setItem('last-lang', lang)
+    } catch (err) {
+      console.error('setLastLang err', err)
+    }
   }
 
   function buildLangSelector (langsData, selectedLang) {
