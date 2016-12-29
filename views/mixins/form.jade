@@ -91,6 +91,9 @@ mixin featuresJavaScripts()
       });
       Jingo.toolbar();
 
+mixin multiLang()
+  +asset("/js/multilang.js")
+
 mixin warning()
   -var warning = locals.warning;
   - if (typeof(warning) != 'undefined')

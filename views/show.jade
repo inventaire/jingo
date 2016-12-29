@@ -8,7 +8,7 @@ block tools
 block content
 
   if !isAjax
-    #content.show
+    #content.show.hidden
       mixin notice()
       mixin warning()
       !=content
@@ -23,3 +23,6 @@ block content
     |,&nbsp;
     b(title="#{page.metadata.date}") #{page.metadata.relDate}&nbsp;
     | &ndash; #{page.metadata.hash}
+
+block scripts
+  mixin multiLang()

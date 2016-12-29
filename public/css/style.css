@@ -99,6 +99,16 @@ p.user {
   margin-top: 4px;
 }
 
+#content.show{
+  position: relative;
+}
+
+.lang-selector{
+  position: absolute;
+  top: 2.5em;
+  right: 0;
+}
+
 .modal-body #content {
   box-shadow: none;
   padding: 10px;
@@ -645,6 +655,10 @@ a.btn-auth.btn-auth-github {
 
 a.btn-auth:hover {
   opacity: .9;
+}
+
+.hidden{
+  display: none;
 }
 
 /*Small screens*/
