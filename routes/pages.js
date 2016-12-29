@@ -5,6 +5,10 @@ var namer = require('../lib/namer')
 var app = require('../lib/app').getInstance()
 var models = require('../lib/models')
 var components = require('../lib/components')
+var log = require('../lib/log')
+var errors_ = require('../lib/errors')
+
+var { title:appTitle } = app.locals.config.get('application')
 
 models.use(Git)
 
@@ -66,7 +70,7 @@ function _getPagesNew (req, res) {
   delete req.session.formData
 
   res.render('create', {
-    title: 'Jingo – Create page ' + title,
+    title: `${appTitle} – Create page ${title}`,
     pageTitle: title,
     pageName: page ? page.wikiname : ''
   })
@@ -121,13 +125,7 @@ function _postPages (req, res) {
     req.session.notice = 'The page has been created. <a href="' + page.urlForEdit() + '">Edit it again?</a>'
     res.redirect(page.urlForShow())
   }).catch(function (err) {
-    res.locals.title = '500 - Internal server error'
-    res.statusCode = 500
-    console.log(err)
-    res.render('500.jade', {
-      message: 'Sorry, something went wrong and I cannot recover. If you think this might be a bug in Jingo, please file a detailed report about what you were doing here: https://github.com/claudioc/jingo/issues . Thank you!',
-      error: err
-    })
+    errors_.send500(res, err, 'pages _postPages err')
   })
 }
 
@@ -196,13 +194,7 @@ function _putPages (req, res) {
       req.session.notice = 'The page has been updated. <a href="' + page.urlForEdit() + '">Edit it again?</a>'
       res.redirect(page.urlForShow())
     }).catch(function (err) {
-      res.locals.title = '500 - Internal server error'
-      res.statusCode = 500
-      console.log(err)
-      res.render('500.jade', {
-        message: 'Sorry, something went wrong and I cannot recover. If you think this might be a bug in Jingo, please file a detailed report about what you were doing here: https://github.com/claudioc/jingo/issues . Thank you!',
-        error: err
-      })
+      errors_.send500(res, err, 'pages savePage err')
     })
   }
 
@@ -250,7 +242,7 @@ function _getPagesEdit (req, res) {
     delete req.session.formData
 
     res.render('edit', {
-      title: 'Jingo – Edit page ' + page.title,
+      title: `${appTitle} – Edit page ${page.title}`,
       page: page,
       warning: warning
     })
@@ -267,10 +259,7 @@ function _getRevert (req, res) {
       page.revert()
       res.redirect(page.urlFor('history'))
     } else {
-      res.locals.title = '500 - Internal Server Error'
-      res.statusCode = 500
-      res.render('500.jade')
-      return
+      errors_.send500(res, null, 'pages _getRevert')
     }
   })
 }
