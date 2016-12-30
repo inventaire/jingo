@@ -38,11 +38,11 @@ mixin tools(action, pageName)
         +anchor("/wiki")(title="All pages").btn.btn-sm.btn-default
           i.icon.ion-grid
 
-mixin saveAndCancel(saveText)
+mixin saveAndCancel(cancelRedirect)
   .well
-    input(type='submit',value=saveText || 'Save',title='Save (Ctrl/Cmd+s)').btn.btn-primary
+    input(type='submit',value='Save',title='Save (Ctrl/Cmd+s)').btn.btn-primary
     |&nbsp;
-    +anchor("/", "Cancel").btn
+    +anchor(coalesce(cancelRedirect, "/"), "Cancel").btn
 
 mixin errors(err)
   -var errors = locals.errors;
