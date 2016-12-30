@@ -107,6 +107,11 @@ p.user {
   right: 1.5em;
 }
 
+.lang-selector.disabled{
+  color: grey;
+  top: 3em;
+}
+
 .modal-body #content {
   box-shadow: none;
   padding: 10px;

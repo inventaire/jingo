@@ -29,7 +29,7 @@
   function updateContent (desiredLang) {
     var desiredLangData = parsedData.langsData[desiredLang]
     var updatedHtml = ''
-    if (desiredLangData.title) {
+    if (desiredLangData && desiredLangData.title) {
       updatedHtml += '<h1>' + desiredLangData.title + '</h1>'
     } else {
       updatedHtml += parsedData.h1
@@ -37,7 +37,7 @@
 
     updatedHtml += buildLangSelector(parsedData.langsData, desiredLang)
 
-    updatedHtml += desiredLangData.html
+    if (desiredLangData) updatedHtml += desiredLangData.html
 
     $content
     // Update html
@@ -90,6 +90,13 @@
 
   function trim (str) { return str.trim() }
 
+  function trimQuotes (str) {
+    return str
+    .trim()
+    .replace(/^"/, '')
+    .replace(/"$/, '')
+  }
+
   function parseMetadata (str) {
     var metadata = {}
 
@@ -100,7 +107,7 @@
     .forEach(function (param) {
       var paramsParts = param.split('=')
       var key = paramsParts[0]
-      var value = paramsParts[1]
+      var value = trimQuotes(paramsParts[1])
       metadata[key] = value
     })
 
@@ -111,7 +118,7 @@
 
   function guessLang () {
     var browserLang = navigator.language || navigator.userLanguage
-    return getLastLang() || browserLang
+    return getLastLang() || browserLang.slice(0, 2).toLowerCase()
   }
 
   function getLastLang () {
@@ -135,9 +142,12 @@
   function buildLangSelector (langsData, selectedLang) {
     var optionsHtml = ''
     var availableLangs = Object.keys(langsData)
+    if (availableLangs.length === 0) {
+      return '<a href="/wiki/wiki-how-to" class="lang-selector disabled internal" title="">missing language markups</a>'
+    }
 
     availableLangs.forEach(function (lang) {
-      var innerOption = langMap[lang]
+      var innerOption = langMap[lang] || lang
       var attributes = 'value="' + lang + '" '
       if (lang === selectedLang) attributes += 'selected'
       optionsHtml += '<option ' + attributes + '>' + innerOption + '</option>'
