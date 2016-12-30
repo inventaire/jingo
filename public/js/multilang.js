@@ -37,7 +37,7 @@
   // Helpers
 
   function updateContent (desiredLang) {
-    var desiredLangData = parsedData.langsData[desiredLang]
+    var desiredLangData = parsedData.langsData[desiredLang] || parsedData.langsData.en
     var updatedHtml = ''
     if (desiredLangData && desiredLangData.title) {
       updatedHtml += '<h1>' + desiredLangData.title + '</h1>'
