@@ -30,7 +30,7 @@ describe('Renderer', function () {
   })
 
   it('should render bracket tags6', function () {
-    var text = 'a [[Il marito di Foo|Foobar]] [[Bar]] b'
+    var text = 'a [[Foobar|Il marito di Foo]] [[Bar]] b'
     expect(Renderer.render(text)).to.be.equal('<p>a <a class="internal" href="/wiki/Foobar">Il marito di Foo</a> <a class="internal" href="/wiki/Bar">Bar</a> b</p>\n')
   })
 

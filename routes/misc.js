@@ -33,10 +33,13 @@ function _getExistence (req, res) {
   var result = []
 
   Promiser.all(req.query.data.map(function (pageName) {
-    var page = new models.Page(pageName)
+    // Prevent passing page names with url hashes
+    var cleanedName = pageName.split('#')[0]
+    var page = new models.Page(cleanedName)
     return exists(page.pathname)
     .catch(function (err) {
       if (err.code === 'ENOENT') {
+        // But return the names with the hash as it's what the client side asked for
         result.push(pageName)
       } else {
         console.error(err)

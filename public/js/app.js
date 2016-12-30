@@ -122,7 +122,11 @@
 
         $.getJSON(proxyPath + '/misc/existence', {data: pages}, function (result) {
           $.each(result.data, function (href, a) {
-            $("#content a[href='" + proxyPath.split('/').join('\\/') + '\\/wiki\\/' + encodeURIComponent(a) + "']").addClass('absent')
+            var name = a.split('#')[0]
+            var hash = a.split('#')[1]
+            var url = proxyPath.split('/').join('\\/') + '\\/wiki\\/' + encodeURIComponent(name)
+            if (hash) url += '#' + hash
+            $("#content a[href='" + url + "']").addClass('absent')
           })
         })
       }
