@@ -96,7 +96,7 @@
     var metadata = headerParts[1]
 
     langData.lang = lang.slice(0, 2).toLowerCase()
-    metadata = parseMetadata(metadata)
+    metadata = parseKeyValueString(metadata)
     langData.title = metadata.title
     langData.html = html.trim()
 
@@ -112,10 +112,10 @@
     .replace(/"$/, '')
   }
 
-  function parseMetadata (str) {
-    var metadata = {}
+  function parseKeyValueString (str) {
+    var data = {}
 
-    if (!str) return metadata
+    if (!str) return data
 
     str
     .split('&')
@@ -123,17 +123,22 @@
       var paramsParts = param.split('=')
       var key = paramsParts[0]
       var value = trimQuotes(paramsParts[1])
-      metadata[key] = value
+      data[key] = value
     })
 
-    return metadata
+    return data
   }
 
   // Lang helpers
 
   function guessLang () {
     var browserLang = navigator.language || navigator.userLanguage
-    return getLastLang() || browserLang.slice(0, 2).toLowerCase()
+    browserLang = browserLang.slice(0, 2).toLowerCase()
+
+    var queryStringData = parseKeyValueString(window.location.search.slice(1))
+    var queryStringLang = queryStringData.lang
+
+    return queryStringLang || getLastLang() || browserLang
   }
 
   function getLastLang () {
