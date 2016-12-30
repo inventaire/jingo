@@ -83,10 +83,20 @@ function _getWikiPage (req, res) {
       res.locals.notice = req.session.notice
       delete req.session.notice
 
+      var contentHtml = renderer.render(page.content)
+      var html = `
+      <section id="title-wrapper">
+        <h1>${page.title}</h1>
+        <ul id="page-controls"></ul>
+      </section>
+      <section id="inner-content-wrapper">
+        ${contentHtml}
+      </section>
+      `
       res.render('show', {
         page: page,
         title: app.locals.config.get('application').title + ' – ' + page.title,
-        content: renderer.render('# ' + page.title + '\n' + page.content)
+        content: html
       })
     } else {
       if (req.user) {

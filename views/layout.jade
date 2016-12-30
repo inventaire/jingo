@@ -42,6 +42,8 @@ include mixins/links
                   span.input-group-btn
                     button.btn.btn-primary(type="submit") Search
             .navbar-right
+              .tools
+                block tools
               if isAnonymous()
                 p.user You're not&nbsp;
                   +anchor('/login?destination', 'logged in')#login(title='Access login page')
@@ -52,9 +54,6 @@ include mixins/links
                   span.username #{user.displayName}
                   +anchor('/logout')(title='Become anonymous')
                     i.icon.ion-power
-
-      .tools
-        block tools
 
       .container
 

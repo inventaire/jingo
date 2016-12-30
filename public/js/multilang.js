@@ -30,8 +30,14 @@
   }
 
   var $content = $('#content')
-  var parsedData = getParsedData()
+  var $titleWrapper = $('#title-wrapper')
+  var $innerContentWrapper = $('#inner-content-wrapper')
+  var $h1 = $('#title-wrapper h1')
+  var $pageControls = $('#page-controls')
+  var pageControlsToolsHtml = $('#page-controls-tools').html()
   var originalHash = window.location.hash
+
+  var parsedData = getParsedData()
 
   updateContent(guessLang())
 
@@ -39,25 +45,26 @@
 
   function updateContent (desiredLang) {
     var desiredLangData = parsedData.langsData[desiredLang] || parsedData.langsData.en
-    var updatedHtml = ''
+
     if (desiredLangData && desiredLangData.title) {
-      updatedHtml += '<h1>' + desiredLangData.title + '</h1>'
+      $h1.text(desiredLangData.title)
     } else {
-      updatedHtml += parsedData.h1
+      $h1.text(parsedData.h1)
     }
 
-    updatedHtml += buildLangSelector(parsedData.langsData, desiredLang)
+    var selectorLi = buildLangSelector(parsedData.langsData, desiredLang)
+    $pageControls.html(selectorLi + pageControlsToolsHtml)
 
-    if (desiredLangData) updatedHtml += desiredLangData.html
-
-    $content
-    // Update html
-    .html(updatedHtml)
     // Started with the class hidden to avoid displaying the full content
     // before cutting it
-    .removeClass('hidden')
+    $content.removeClass('hidden')
+
     // Listen for language change
-    .find('.lang-selector').on('change', updateContentOnLangChange)
+    $content.find('.lang-selector').on('change', updateContentOnLangChange)
+
+    // Update inner content html
+    var updatedHtml = (desiredLangData && desiredLangData.html) || ''
+    $innerContentWrapper.html(updatedHtml)
 
     // Then, once the DOM is ready, scroll to hash
     // as we were messing with the DOM when the browser tryed
@@ -71,10 +78,9 @@
   }
 
   function getParsedData () {
-    var contentHtml = $content.html()
-    var parts = contentHtml.split('<!-- LANG:')
-    var h1 = parts[0]
-    var perLangContent = parts.slice(1)
+    var h1 = $h1.text()
+
+    var perLangContent = $innerContentWrapper.html().split('<!-- LANG:').slice(1)
     var data = { h1: h1, langsData: {} }
 
     perLangContent
@@ -163,7 +169,7 @@
     var optionsHtml = ''
     var availableLangs = Object.keys(langsData)
     if (availableLangs.length === 0) {
-      return '<a href="/wiki/wiki-how-to" class="lang-selector disabled internal" title="">missing language markups</a>'
+      return '<a href="/wiki/wiki-how-to#language-markups" class="lang-selector absent" title="">missing language markups</a>'
     }
 
     availableLangs.forEach(function (lang) {
@@ -173,7 +179,8 @@
       optionsHtml += '<option ' + attributes + '>' + innerOption + '</option>'
     })
 
-    return '<select class="lang-selector">' + optionsHtml + '</select>'
+    var selector = '<select class="lang-selector">' + optionsHtml + '</select>'
+    return '<li>' + selector + '</li>'
   }
 
   function scrollToHashSection (hash) {

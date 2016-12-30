@@ -15,6 +15,17 @@ mixin tools(action, pageName)
         li
           +anchor("/pages/new")(title="Create new page").btn.btn-sm.btn-default
             i.icon.ion-plus-round
+      li
+        +anchor("/wiki")(title="All pages").btn.btn-sm.btn-default
+          i.icon.ion-grid
+      if canSearch()
+        li
+          +anchor("/search")(title="Search through the pages").btn.btn-sm.btn-default
+            i.icon.ion-search
+
+    //- Tools specific to the page to be copyied in the page-controls
+    //- by public/js/multilang.js
+    ul#page-controls-tools.hidden
       if !isAnonymous() && canEdit
         li
           +anchor("/pages/" + pageName + "/edit")(title="Edit this page").btn.btn-sm.btn-default
@@ -23,14 +34,6 @@ mixin tools(action, pageName)
       li
         +anchor("/wiki/" + pageName + "/history")(title="Page history").btn.btn-sm.btn-default
           i.icon.ion-clock
-      li
-        +anchor("/wiki")(title="All pages").btn.btn-sm.btn-default
-          i.icon.ion-grid
-
-      if canSearch()
-        li
-          +anchor("/search")(title="Search through the pages").btn.btn-sm.btn-default
-            i.icon.ion-search
 
   if action == 'history'
     ul

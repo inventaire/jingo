@@ -101,15 +101,58 @@ p.user {
   position: relative;
 }
 
-.lang-selector{
-  position: absolute;
-  top: 2.5em;
-  right: 1.5em;
+#title-wrapper{
+  position: relative;
 }
 
-.lang-selector.disabled{
-  color: grey;
-  top: 3em;
+#page-controls, #page-controls li {
+  list-style-type: none;
+  margin: 0;
+}
+
+#page-controls{
+  position: absolute;
+  top: -0.8em;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 80%;
+}
+
+#page-controls li{
+  margin-left: 0.5em;
+  display : inline;
+  flex: 0 0 auto;
+}
+
+#page-controls select, #page-controls a{
+  padding: 0.3em 0.6em 0.3em 0.6em;
+  background-color: #efefef;
+  border-radius: 3px;
+  font-size: 18px;
+  color: #333;
+  border: 1px solid transparent;
+  border-color: #ccc;
+}
+
+#page-controls select{
+  height: 2em;
+}
+
+
+#page-controls .btn{
+  height: 2em;
+}
+
+#page-controls a i{
+  width: 1em;
+  margin-top: 0.4em;
+}
+
+.lang-selector.absent{
+  color: red !important;
 }
 
 .modal-body #content {
@@ -462,20 +505,13 @@ ul.doc-list > li .message {
 }
 
 .tools {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1030;
-}
-
-.tools > ul {
-  position: relative;
-  text-align: center;
+  display: inline-block;
   margin: 0;
   padding: 0;
-  line-height: 250%;
-  background-color: rgba(27,27,27,0);
-  border-bottom-left-radius: 5px;
+}
+
+.tools ul{
+  margin: 0;
 }
 
 .tools > ul > li {
@@ -484,7 +520,8 @@ ul.doc-list > li .message {
 }
 
 .page-actions a.btn,
-.tools a.btn {
+.tools a.btn,
+#page-controls a.btn {
   font-size: 18px;
   padding: 0 10px;
   margin-bottom: -3px;
@@ -492,7 +529,8 @@ ul.doc-list > li .message {
 }
 
 .page-actions a.hover,
-.tools a:hover {
+.tools a:hover,
+#page-controls a:hover {
   color: #4183c4;
 }
 
@@ -655,14 +693,6 @@ a.btn-auth {
   color: transparent;
 }
 
-a.btn-auth.btn-auth-google {
-  background-position: 0px 103%;
-}
-
-a.btn-auth.btn-auth-github {
-  background-position: 0px 50%;
-}
-
 a.btn-auth:hover {
   opacity: .9;
 }
@@ -679,18 +709,27 @@ a.btn-auth:hover {
   }
 
   .tools{
-    top: auto;
+    position: fixed;
+    /* Get above the content */
+    z-index: 3;
     bottom: 0;
+    right: 0;
     background-color: rgba(27,27,27,.3);
-    padding: 0 5px 5px 5px;
+    padding: 0.3em 0.3em 0.4em 0.3em;
     border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
   }
 
-  .lang-selector{
+  .tools ul, .tools ul li{
+    margin: 0;
+    padding: 0;
+  }
+
+  #page-controls{
     position: relative;
-    top: auto;
-    right: auto;
+    width: 100%;
+  }
+
+  #page-controls li{
     margin-bottom: 1em;
   }
 }
@@ -698,6 +737,7 @@ a.btn-auth:hover {
 @media screen and (min-width: 768px) {
   p.user {
     margin-right: auto;
+    display: inline-block;
   }
 
   #content {
@@ -709,11 +749,9 @@ a.btn-auth:hover {
   }
 
   .tools {
-    right: 280px;
-    /* Centering vertically */
-    margin-top: -1px;
     opacity: 0.9;
     transition: opacity 0.2s;
+    margin-right: 10em;
   }
   .tools:hover{
     opacity: 1;
@@ -722,7 +760,7 @@ a.btn-auth:hover {
 
 /*Medium screens*/
 @media screen and (min-width: 768px) and (max-width: 1000px) {
-  .tools {
-    right: 200px;
+  .tools{
+    margin-right: 2em;
   }
 }
