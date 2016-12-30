@@ -31,6 +31,7 @@
 
   var $content = $('#content')
   var parsedData = getParsedData()
+  var originalHash = window.location.hash
 
   updateContent(guessLang())
 
@@ -57,6 +58,10 @@
     .removeClass('hidden')
     // Listen for language change
     .find('.lang-selector').on('change', updateContentOnLangChange)
+
+    // Then, once the DOM is ready, scroll to hash
+    // as we were messing with the DOM when the browser tryed
+    scrollToHashSection(originalHash)
   }
 
   function updateContentOnLangChange (event) {
@@ -164,6 +169,10 @@
     })
 
     return '<select class="lang-selector">' + optionsHtml + '</select>'
+  }
+
+  function scrollToHashSection (hash) {
+    if (hash && hash.length > 0) window.location.hash = hash
   }
 
 })()
