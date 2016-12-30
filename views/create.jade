@@ -18,7 +18,8 @@ block content
         input.form-control(required, type='text', placeholder='Enter the page title', name='pageTitle', value="#{coalesce(formData.pageTitle, pageTitle)}")#pageTitle
 
       .form-group
-        textarea.form-control(name="content", data-widearea="enable", rows=25)#editor #{coalesce(formData.content, '')}
+        textarea.form-control(name="content", data-widearea="enable", rows=25)#editor #{coalesce(formData.content, '')} &lt;!-- LANG:EN, title="#{coalesce(formData.pageTitle, pageTitle)}"--&gt;
+
 
       mixin saveAndCancel()
 
