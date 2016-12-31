@@ -11,7 +11,7 @@ CODEMIRROR_BUNDLE=./public/css/bundle-codemirror.min.css
 rm -f $JS_BUNDLE $CSS_BUNDLE
 [ $DEVMODE ] ||rm -f $CODEMIRROR_BUNDLE
 
-logsize(){ [ $DEVMODE ] ||du -sh $1 ; }
+logsize(){ [ $DEVMODE ] ||du -sh $@ ; }
 
 addFile(){
   logsize $1
