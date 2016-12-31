@@ -107,28 +107,7 @@
       }
 
       if (/^\/wiki\//.test(window.location.pathname)) {
-        var pages = []
-        var match
-        var href
-
-        $('#content a.internal').each(function (i, a) {
-          href = $(a).attr('href')
-          href = href.slice(proxyPath.length)
-          match = /\/wiki\/(.+)/.exec(href)
-          if (match) {
-            pages.push(decodeURIComponent(match[1]))
-          }
-        })
-
-        $.getJSON(proxyPath + '/misc/existence', {data: pages}, function (result) {
-          $.each(result.data, function (href, a) {
-            var name = a.split('#')[0]
-            var hash = a.split('#')[1]
-            var url = proxyPath.split('/').join('\\/') + '\\/wiki\\/' + encodeURIComponent(name)
-            if (hash) url += '#' + hash
-            $("#content a[href='" + url + "']").addClass('absent')
-          })
-        })
+        markMissingPagesAsAbsent('#content')
       }
 
       function toggleCompareCheckboxes () {
@@ -160,6 +139,7 @@
       $('#preview').modal({keyboard: true, show: true, backdrop: false})
       $.post(proxyPath + '/misc/preview', {data: $('#editor').val()}, function (data) {
         $('#preview .modal-body').html(data).get(0).scrollTop = 0
+        markMissingPagesAsAbsent('#preview .modal-body')
       })
     },
 
@@ -205,6 +185,31 @@
         cheatsheetShown = true
       }
     }
+  }
+
+  function markMissingPagesAsAbsent (selector) {
+    var pages = []
+    var match
+    var href
+
+    $(selector + ' a.internal').each(function (i, a) {
+      href = $(a).attr('href')
+      href = href.slice(proxyPath.length)
+      match = /\/wiki\/(.+)/.exec(href)
+      if (match) {
+        pages.push(decodeURIComponent(match[1]))
+      }
+    })
+
+    $.getJSON(proxyPath + '/misc/existence', {data: pages}, function (result) {
+      $.each(result.data, function (href, a) {
+        var name = a.split('#')[0]
+        var hash = a.split('#')[1]
+        var url = proxyPath.split('/').join('\\/') + '\\/wiki\\/' + encodeURIComponent(name)
+        if (hash) url += '#' + hash
+        $(selector + " a[href='" + url + "']").addClass('absent')
+      })
+    })
   }
 
   window.Jingo = Jingo
