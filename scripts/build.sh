@@ -36,7 +36,8 @@ log '---- JS SRC FILES'
 ### RUN IN DEV MODE
 addFile ./public/vendor/jquery.min.js $JS_BUNDLE &&
 addFile ./public/vendor/bootstrap/js/bootstrap.min.js $JS_BUNDLE &&
-addFile ./public/js/app.js $JS_BUNDLE &&
+uglifyjs ./public/js/app.js -c -m -o ./public/js/app.min.js
+addFile ./public/js/app.min.js $JS_BUNDLE &&
 ###
 log '---- JS BUNDLE' &&
 compressFile $JS_BUNDLE
