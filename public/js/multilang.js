@@ -30,7 +30,6 @@
   }
 
   var $content = $('#content')
-  var $titleWrapper = $('#title-wrapper')
   var $innerContentWrapper = $('#inner-content-wrapper')
   var $h1 = $('#title-wrapper h1')
   var $pageControls = $('#page-controls')
@@ -44,7 +43,7 @@
   // Helpers
 
   function updateContent (desiredLang) {
-    var desiredLangData = parsedData.langsData[desiredLang] || parsedData.langsData.en
+    var desiredLangData = parsedData.langsData[desiredLang] || parsedData.langsData.en
 
     if (desiredLangData && desiredLangData.title) {
       $h1.text(desiredLangData.title)
@@ -63,7 +62,7 @@
     $content.find('.lang-selector').on('change', updateContentOnLangChange)
 
     // Update inner content html
-    var updatedHtml = (desiredLangData && desiredLangData.html) || ''
+    var updatedHtml = (desiredLangData && desiredLangData.html) || ''
     $innerContentWrapper.html(updatedHtml)
 
     // Then, once the DOM is ready, scroll to hash
@@ -144,7 +143,7 @@
     var queryStringData = parseKeyValueString(window.location.search.slice(1))
     var queryStringLang = queryStringData.lang
 
-    return queryStringLang || getLastLang() || browserLang
+    return queryStringLang || getLastLang() || browserLang
   }
 
   function getLastLang () {
@@ -173,7 +172,7 @@
     }
 
     availableLangs.forEach(function (lang) {
-      var innerOption = langMap[lang] || lang
+      var innerOption = langMap[lang] || lang
       var attributes = 'value="' + lang + '" '
       if (lang === selectedLang) attributes += 'selected'
       optionsHtml += '<option ' + attributes + '>' + innerOption + '</option>'
