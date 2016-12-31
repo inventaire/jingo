@@ -58,7 +58,7 @@ mixin errors(err)
 
 mixin featuresStylesheets()
   if hasFeature('codemirror')
-    +asset("/css/codemirror-bundle.min.css")(type="text/css")
+    +asset("/css/bundle-codemirror.min.css")(type="text/css")
 
 mixin featuresJavaScripts()
   if hasFeature('codemirror')

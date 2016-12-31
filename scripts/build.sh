@@ -5,7 +5,7 @@ DEVMODE=$1
 
 CSS_BUNDLE=./public/css/bundle.min.css
 JS_BUNDLE=./public/js/bundle.min.js
-CODEMIRROR_BUNDLE=./public/css/codemirror-bundle.min.css
+CODEMIRROR_BUNDLE=./public/css/bundle-codemirror.min.css
 
 # reset bundles
 rm -f $JS_BUNDLE $CSS_BUNDLE
