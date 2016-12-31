@@ -8,4 +8,5 @@ config-prod.yaml
 *gz
 bundle*
 public/js/multilang.min.js
+public/js/app.min.js
 public/css/style.css
