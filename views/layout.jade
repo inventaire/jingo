@@ -20,10 +20,7 @@ include mixins/links
       meta(name="description", property="og:description", content="on inventaire wiki")
       meta(property="og:image", content="https://inventaire.io/public/images/inventaire-books.jpg")
 
-      +asset("/vendor/bootstrap/css/bootstrap.min.css")
-      +asset("/css/style.css")
-      +asset("/css/ionicons.min.css")
-      +asset("/css/shCoreDefault.css")
+      +asset("/css/bundle.min.css")
       link(rel="icon", type="image/png", href="/img/inv-dark-grey-32px.png")
       block styles
       if hasCustomStyle()
@@ -73,11 +70,7 @@ include mixins/links
             .col-md-8.with-footer
               .content !{_footer}
 
-      script(src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
-      script.
-        window.jQuery || document.write("<sc" + "ript src='#{proxyPath}/vendor/jquery.min.js'></scr" + "ipt>");
-      +asset("/vendor/bootstrap/js/bootstrap.min.js")
-      +asset("/js/app.js")
+      script(src="#{proxyPath}/js/bundle.min.js")
       script.
         Jingo.init("#{proxyPath}");
       block scripts

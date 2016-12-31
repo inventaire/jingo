@@ -25,7 +25,6 @@ authentication:
     inventaire:
       host: 'http://localhost:3006'
 features:
-  markitup: false
   codemirror: true
 server:
   hostname: localhost

@@ -369,10 +369,6 @@ hr {
   font-weight: bold;
 }
 
-.navbar-inverse {
-  background-color: rgba(0,0,0);
-}
-
 .alert {
   border: 1px solid #E8E2BF;
   border-radius: 0;
@@ -532,17 +528,6 @@ ul.doc-list > li .message {
 .tools a:hover,
 #page-controls a:hover {
   color: #4183c4;
-}
-
-/* Needed for wideArea */
-.markItUpHeader {
-  position: relative;
-  z-index: 2;
-}
-
-.markItUpEditor {
-  height: 500px !important;
-  font-family: Consolas, monospace !important;
 }
 
 .toolbar {

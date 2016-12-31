@@ -57,24 +57,10 @@ mixin errors(err)
             b= v.msg || v
 
 mixin featuresStylesheets()
-  if hasFeature('markitup')
-    +asset("/vendor/widearea/widearea.min.css")(type="text/css")
-    +asset("/vendor/markitup/skins/simple/style.css")(type="text/css")
-    +asset("/vendor/markitup/sets/markdown/style.css")(type="text/css")
   if hasFeature('codemirror')
-    +asset("/css/codemirror-ext.css")(type="text/css")
-    +asset("/vendor/codemirror/codemirror.css")(type="text/css")
-    +asset("/vendor/codemirror/fullscreen.css")(type="text/css")
+    +asset("/css/codemirror-bundle.min.css")(type="text/css")
 
 mixin featuresJavaScripts()
-  if hasFeature('markitup')
-    +asset("/vendor/jquery-migrate-1.1.0.min.js")
-    +asset("/vendor/markitup/jquery.markitup.js")
-    +asset("/vendor/markitup/sets/markdown/set.js")
-    +asset("/vendor/widearea/widearea.min.js")
-    script.
-     $('#editor').markItUp(markdownSettings);
-     wideArea();
   if hasFeature('codemirror')
     +asset("/vendor/codemirror/codemirror.min.js")
     script.
