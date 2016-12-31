@@ -55,6 +55,7 @@ log '\n---- CSS SRC FILES'
 ### RUN IN DEV MODE
 addFile ./public/vendor/bootstrap/css/bootstrap.min.css $CSS_BUNDLE
 node-sass ./public/css/style.scss > ./public/css/style.css
+[ $DEVMODE ] && sed -i 's@https://inventaire.io@http://localhost:3006@' ./public/css/style.css
 addFile ./public/css/style.css $CSS_BUNDLE
 addFile ./public/css/ionicons.min.css $CSS_BUNDLE
 addFile ./public/css/shCoreDefault.css $CSS_BUNDLE
