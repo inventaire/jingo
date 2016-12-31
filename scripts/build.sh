@@ -73,6 +73,9 @@ addFile ./public/vendor/codemirror/fullscreen.css $CODEMIRROR_BUNDLE &&
 applyPostCss $CODEMIRROR_BUNDLE &&
 compressFile $CODEMIRROR_BUNDLE
 
+log '\n FONTS COMPRESSION'
+compressFile ./public/fonts/ionicons.ttf
+
 echo 'done building'
 
 exit 0
