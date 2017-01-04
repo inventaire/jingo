@@ -12,13 +12,13 @@ include mixins/links
       meta(name="twitter:title", content="#{title}")
       meta(name="twitter:card", content="summary_large_image")
       meta(name="twitter:site", content="@inventaire_io")
-      meta(name="twitter:description", content="on inventaire wiki")
-      meta(name="twitter:image", content="https://inventaire.io/public/images/inventaire-books.jpg")
+      meta(name="twitter:description", content="#{coalesce(description, '')}")
+      meta(name="twitter:image", content="https://wiki.inventaire.io/img/screenshot.png")
 
       meta(property="og:site_name", content="inventaire wiki")
       meta(property="og:title", content="#{title}")
-      meta(name="description", property="og:description", content="on inventaire wiki")
-      meta(property="og:image", content="https://inventaire.io/public/images/inventaire-books.jpg")
+      meta(name="description", property="og:description", content="#{coalesce(description, '')}")
+      meta(property="og:image", content="https://wiki.inventaire.io/img/screenshot.png")
 
       +asset("/css/bundle.min.css")
       link(rel="icon", type="image/png", href="/img/inv-dark-grey-32px.png")
