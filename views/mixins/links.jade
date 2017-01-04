@@ -4,9 +4,14 @@ mixin anchor(url, name)
 
 mixin asset(url)
   -
-    var link = proxyPath + url
-    var match = /^.*?\.([a-zA-Z]+)$/.exec(url)
-    var ext = match.length > 1 ? match[1] : ''
+    var link = proxyPath + cacheBust(url)
+    var ext
+    try {
+      ext = link.split('?')[0].split('.').slice(-1)[0]
+    } catch (err) {
+      ext = ''
+    }
+
   if ext === 'css'
     link(rel="stylesheet", href=link)
   else if ext === 'js'
