@@ -109,7 +109,9 @@ function _postPages (req, res) {
   }
 
   req.sanitize('pageTitle').trim()
+  req.sanitize('pageTitle').escape()
   req.sanitize('content').trim()
+  req.sanitize('content').removeScriptTags()
 
   if (page.exists()) {
     req.session.errors = [{msg: 'A document with this title already exists'}]
@@ -153,8 +155,11 @@ function _putPages (req, res) {
   }
 
   req.sanitize('pageTitle').trim()
+  req.sanitize('pageTitle').escape()
   req.sanitize('content').trim()
+  req.sanitize('content').removeScriptTags()
   req.sanitize('message').trim()
+  req.sanitize('message').escape()
 
   page.author = req.user.asGitAuthor
 
