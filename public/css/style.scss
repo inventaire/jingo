@@ -39,12 +39,6 @@ h1, h2, h3, h4, h5, h6{
   font-family: 'Alegreya';
 }
 
-a[href^="https://"],
-a[href^="http://"] {
-  background: url(../img/ext.png) center right no-repeat;
-  padding-right: 13px;
-}
-
 a.logout i {
   color: orange;
   margin-left: .5em;
@@ -685,6 +679,9 @@ a.btn-auth:hover {
 .hidden{
   display: none;
 }
+
+@import './container';
+@import './footer';
 
 /*Small screens*/
 @media screen and (max-width: 768px) {

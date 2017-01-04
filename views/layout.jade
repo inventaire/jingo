@@ -73,6 +73,10 @@ include mixins/links
             .col-md-8.with-footer
               .content !{_footer}
 
+      footer
+        +anchor(href="https://github.com/inventaire/jingo") source code
+        +anchor(href="https://github.com/inventaire/inventaire-wiki") raw files
+
       script(src="#{proxyPath}/js/bundle.min.js")
       script.
         Jingo.init("#{proxyPath}");

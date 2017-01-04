@@ -1,0 +1,7 @@
+.container{
+  a[href^="https://"],
+  a[href^="http://"] {
+    background: url(../img/ext.png) center right no-repeat;
+    padding-right: 13px;
+  }
+}
