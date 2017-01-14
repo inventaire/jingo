@@ -11,10 +11,9 @@ mixin tools(action, pageName)
 
   if action == 'show'
     ul
-      if !isAnonymous()
-        li
-          +anchor("/pages/new")(title="Create new page").btn.btn-sm.btn-default
-            i.icon.ion-plus-round
+      li
+        +anchor("/pages/new")(title="Create new page").btn.btn-sm.btn-default
+          i.icon.ion-plus-round
       li
         +anchor("/wiki")(title="All pages").btn.btn-sm.btn-default
           i.icon.ion-grid
@@ -26,7 +25,7 @@ mixin tools(action, pageName)
     //- Tools specific to the page to be copyied in the page-controls
     //- by public/js/multilang.js
     ul#page-controls-tools.hidden
-      if !isAnonymous() && canEdit
+      if canEdit
         li
           +anchor("/pages/" + pageName + "/edit")(title="Edit this page").btn.btn-sm.btn-default
             i.icon.ion-compose
