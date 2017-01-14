@@ -16,6 +16,7 @@ router.get('/wiki', _getWiki)
 router.options('/wiki/:page', corsEnabler)
 router.get('/wiki/:page', corsEnabler, _getWikiPage)
 router.get('/wiki/:page/history', _getHistory)
+router.get('/wiki/:page/edit', _redirectEdit)
 router.get('/wiki/:page/:version', _getWikiPage)
 router.get('/wiki/:page/compare/:revisions', _getCompare)
 
@@ -220,6 +221,10 @@ function _getCompare (req, res) {
 
 function _getIndex (req, res) {
   res.redirect(proxyPath + '/wiki/' + app.locals.config.get('pages').index)
+}
+
+function _redirectEdit (req, res) {
+  res.redirect(`${proxyPath}/pages/${req.params.page}/edit`)
 }
 
 module.exports = router
