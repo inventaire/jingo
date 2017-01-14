@@ -14,6 +14,7 @@ models.use(Git)
 
 router.get('/pages/new', _getPagesNew)
 router.get('/pages/new/:page', _getPagesNew)
+router.get('/pages/:page', _redirectPage)
 router.get('/pages/:page/edit', _getPagesEdit)
 router.post('/pages', _postPages)
 router.put('/pages/:page', _putPages)
@@ -215,6 +216,10 @@ function _putPages (req, res) {
     }
     res.redirect(page.urlForEditWithError())
   }
+}
+
+function _redirectPage (req, res) {
+  res.redirect(`${proxyPath}/wiki/${req.params.page}`)
 }
 
 function _getPagesEdit (req, res) {
