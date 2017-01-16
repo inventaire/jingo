@@ -96,7 +96,7 @@ function _getWikiPage (req, res) {
       `
       res.render('show', {
         page: page,
-        title: app.locals.config.get('application').title + ' – ' + page.title,
+        title: page.title + ' – ' + app.locals.config.get('application').title,
         content: html
       })
     } else {

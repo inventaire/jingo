@@ -29,6 +29,8 @@
     sv: 'Svenska'
   }
 
+  var originalTitle = window.document.title.split(' – ')[0]
+
   var $content = $('#content')
   var $innerContentWrapper = $('#inner-content-wrapper')
   var $h1 = $('#title-wrapper h1')
@@ -43,10 +45,13 @@
   // Helpers
 
   function updateContent (desiredLang) {
-    var desiredLangData = parsedData.langsData[desiredLang] || parsedData.langsData.en
+    var langData = parsedData.langsData[desiredLang] || parsedData.langsData.en
 
-    if (desiredLangData && desiredLangData.title) {
-      $h1.text(desiredLangData.title)
+    updateUrl(langData.lang)
+    updateTitle(langData.title)
+
+    if (langData && langData.title) {
+      $h1.text(langData.title)
     } else {
       $h1.text(parsedData.h1)
     }
@@ -62,7 +67,7 @@
     $content.find('.lang-selector').on('change', updateContentOnLangChange)
 
     // Update inner content html
-    var updatedHtml = (desiredLangData && desiredLangData.html) || ''
+    var updatedHtml = (langData && langData.html) || ''
     $innerContentWrapper.html(updatedHtml)
 
     // Then, once the DOM is ready, scroll to hash
@@ -184,6 +189,31 @@
 
   function scrollToHashSection (hash) {
     if (hash && hash.length > 0) window.location.hash = hash
+  }
+
+  function updateUrl (lang) {
+    if (window.history.pushState && lang && lang.length === 2) {
+      // source: https://developer.mozilla.org/en-US/docs/Web/API/History_API
+      var stateObj = {}
+      var currentPath = location.pathname + location.search
+      var newPath = location.pathname + '?lang=' + lang
+
+      // Case when hitting previous
+      if (currentPath === newPath) return
+
+      stateObj[currentPath] = newPath
+
+      var initialLocation = location.search === ''
+      var fnName = initialLocation ? 'replaceState' : 'pushState'
+
+      history[fnName](stateObj, '', newPath);
+    }
+  }
+
+  function updateTitle (pageTitle) {
+    var currentTitleParts = window.document.title.split(' – ')
+    pageTitle = pageTitle || originalTitle
+    window.document.title = pageTitle + ' – ' + currentTitleParts[1]
   }
 
 })()
