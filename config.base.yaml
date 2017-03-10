@@ -29,6 +29,7 @@ features:
 server:
   hostname: localhost
   port: 6067
+  publicHost: 'http://localhost:6067'
   localOnly: false
   baseUrl: ''
   CORS:

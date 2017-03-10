@@ -17,7 +17,7 @@ include mixins/links
       meta(name="twitter:image", content="https://wiki.inventaire.io/img/screenshot.png")
 
       meta(property="og:site_name", content="inventaire wiki")
-      meta(property="og:url", content="https://wiki.inventaire.io/")
+      meta(property="og:url", content="#{coalesce(url, 'https://wiki.inventaire.io/')}")
       meta(property="og:title", content="#{title}")
       //- facebook guesses the description from the content so it's ok to pass it an empty description
       meta(name="description", property="og:description", content="#{coalesce(description, '')}")

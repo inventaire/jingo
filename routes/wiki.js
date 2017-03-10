@@ -7,6 +7,8 @@ var corsEnabler = require('../lib/cors-enabler')
 var app = require('../lib/app').getInstance()
 var log = require('../lib/log')
 
+var publicHost = app.locals.config.get('server').publicHost
+var appTitle = app.locals.config.get('application').title
 var proxyPath = app.locals.config.getProxyPath()
 
 models.use(Git)
@@ -96,7 +98,8 @@ function _getWikiPage (req, res) {
       `
       res.render('show', {
         page: page,
-        title: page.title + ' – ' + app.locals.config.get('application').title,
+        title: page.title + ' – ' + appTitle,
+        url: publicHost + '/wiki/' + page.wikiname,
         content: html
       })
     } else {
