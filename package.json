@@ -72,7 +72,6 @@
     "mocha": "*",
     "node-sass": "^4.1.1",
     "nodemon": "^1.10.2",
-    "onchange-mini": "^1.0.1",
     "postcss-cli": "^2.6.0",
     "sinon": "^1.10.3",
     "uglifyjs": "^2.4.10"
@@ -80,7 +79,7 @@
   "scripts": {
     "test": "mocha test/spec",
     "start": "./jingo -c config.yaml",
-    "start-dev": "./scripts/start_dev.sh",
+    "watch": "./scripts/start_dev.sh",
     "build": "./scripts/build.sh"
   },
   "engines": {
