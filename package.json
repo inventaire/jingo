@@ -80,7 +80,8 @@
     "test": "mocha test/spec",
     "start": "./jingo -c config.yaml",
     "watch": "./scripts/start_dev.sh",
-    "build": "./scripts/build.sh"
+    "build": "./scripts/build.sh",
+    "use-local-fonts": "./scripts/use_local_fonts.sh"
   },
   "engines": {
     "node": ">=0.8",
