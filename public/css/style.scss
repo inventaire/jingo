@@ -716,6 +716,8 @@ a.btn-auth:hover {
   }
 }
 
+
+/*Large screens*/
 @media screen and (min-width: 768px) {
   p.user {
     margin-right: auto;
@@ -730,6 +732,10 @@ a.btn-auth:hover {
     display: block;
   }
 
+  #title-wrapper h1{
+    // Prevent the header and #page-controls to overlap
+    padding-right: 8em;
+  }
   .tools {
     opacity: 0.9;
     transition: opacity 0.2s;
