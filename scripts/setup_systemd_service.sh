@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -e
+
 PROJECT_ROOT=$(pwd)
 NODE_VERSION=$(node -v)
 HOME_FOLDER=~

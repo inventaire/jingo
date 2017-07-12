@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
+
+set -e
 
 PROJECT_ROOT=$(pwd)
 DATA_FOLDER="$PROJECT_ROOT/data"

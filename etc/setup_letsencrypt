@@ -1,3 +1,7 @@
+#!/usr/bin/env zsh
+
+set -e
+
 # Script written to setup let's encrypt on the same VPS as wikidata-subset-search-engine
 # Supposes this was run before: https://github.com/inventaire/wikidata-subset-search-engine/blob/1f7cecbc8e55fe5669c42cf62e066269d9ddf5be/nginx/install
 

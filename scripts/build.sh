@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
+
+set -e
 
 # Pass an argument to ignore unnecessary steps in development mode
 DEVMODE=$1

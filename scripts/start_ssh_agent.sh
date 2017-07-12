@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
+
+set -e
 
 # Start the ssh-agent and setup the environment variables
 # to be available for ssh-add
