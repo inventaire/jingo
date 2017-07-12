@@ -84,10 +84,6 @@ p.user {
   display: inline-block;
 }
 
-#content.show li {
-  line-height: 1.92;
-}
-
 #content.show ul >li:first-child {
   margin-top: 4px;
 }
@@ -195,7 +191,7 @@ label {
 
 p {
   margin-bottom: 20px;
-  line-height: 1.92;
+  line-height: 1.8em;
 }
 
 hr {
@@ -716,7 +712,6 @@ a.btn-auth:hover {
     margin-bottom: 1em;
   }
 }
-
 
 /*Large screens*/
 @media screen and (min-width: 768px) {

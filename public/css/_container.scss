@@ -5,3 +5,10 @@
     padding-right: 13px;
   }
 }
+
+#summary + ul, #sommaire + ul{
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  padding-top: 0.8em;
+  padding-bottom: 0.6em;
+}
