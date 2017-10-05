@@ -44,6 +44,7 @@ log '---- JS BUNDLE' &&
 compressFile $JS_BUNDLE
 
 log '\n---- JS MULTILANG'
+browserify ./app/multilang.js -o ./public/js/multilang.js
 logsize ./public/js/multilang.js
 ### RUN IN DEV MODE
 uglifyjs ./public/js/multilang.js -c -m -o ./public/js/multilang.min.js
