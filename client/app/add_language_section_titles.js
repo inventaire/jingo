@@ -1,8 +1,5 @@
 var langMarkupPattern = /<!--\s?LANG:(\w{2}).*title="(.*)"\s?-->/g
-
 var langMap = require('../multilang/lang_map')
-
-var langTitle = '<h2 class="lang-section-header"></h2>'
 
 module.exports = function (html) {
   var matches = html.match(langMarkupPattern)
