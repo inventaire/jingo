@@ -1,5 +1,15 @@
+$navbar-bg: #222;
+
 .editor-toolbar{
   opacity: 1 !important;
+  .fa{
+    outline: 0;
+    color: $navbar-bg !important;
+    &.active{
+      background-color: $navbar-bg !important;
+      color: white !important;
+    }
+  }
 }
 .CodeMirror .CodeMirror-code .cm-comment{
   // Highlighting comments
