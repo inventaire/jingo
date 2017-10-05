@@ -34,6 +34,7 @@ log(){ [ $DEVMODE ] ||echo $1 ; }
 
 log '---- JS SRC FILES'
 ### RUN IN DEV MODE
+browserify ./app/index.js -o ./public/js/app.js
 addFile ./public/vendor/jquery.min.js $JS_BUNDLE &&
 addFile ./public/vendor/bootstrap/js/bootstrap.min.js $JS_BUNDLE &&
 uglifyjs ./public/js/app.js -c -m -o ./public/js/app.min.js
