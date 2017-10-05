@@ -57,7 +57,7 @@ cp ./node_modules/simplemde/dist/* ./public/vendor/simplemde
 
 log '\n---- CSS/FONT FONT-AWESOME'
 mkdir -p ./public/vendor/font-awesome ./public/vendor/fonts
-cp ./node_modules/font-awesome/css/font-awesome.min.css ./public/vendor/font-awesome/css
+cp ./node_modules/font-awesome/css/font-awesome.min.css ./public/vendor/font-awesome
 # That's where the css will be looking for the fonts
 mkdir -p ./public/vendor/fonts
 cp ./node_modules/font-awesome/fonts/* ./public/vendor/fonts
