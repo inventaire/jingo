@@ -1,4 +1,5 @@
 $navbar-bg: #222;
+$lang-section-color: rgba(#123456, 0.5);
 
 .editor-toolbar{
   opacity: 1 !important;
@@ -11,7 +12,9 @@ $navbar-bg: #222;
     }
   }
 }
-.CodeMirror .CodeMirror-code .cm-comment{
+
+.CodeMirror .CodeMirror-code .cm-comment, .lang-section-header{
   // Highlighting comments
-  background-color: rgba(blue, 0.4) !important;
+  color: white;
+  background-color: $lang-section-color !important;
 }
