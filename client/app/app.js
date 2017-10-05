@@ -49,7 +49,8 @@ var Jingo = window.Jingo = {
     // Trigger after the DOM was updated
     setTimeout(existance.markMissingPagesAsAbsent.bind(null, previewEL), 10)
     var html = SimpleMDE.prototype.markdown(renderTags(plainText))
-    return require('./add_language_section_titles')(html)
+    var defaultTitle = $('#pageTitle')[0].value
+    return require('./add_language_section_titles')(html, defaultTitle)
   },
 
   save: function () {

@@ -1,17 +1,18 @@
-var langMarkupPattern = /<!--\s?LANG:(\w{2}).*title="(.*)"\s?-->/g
+var langMarkupPattern = /<!--\s?LANG:\w{2}.*-->/g
 var langMap = require('../multilang/lang_map')
 
-module.exports = function (html) {
+module.exports = function (html, defaultTitle) {
   var matches = html.match(langMarkupPattern)
   matches.forEach(function (match) {
     var lang = match.match(/LANG:(\w{2})/)[1]
-    var title = match.match(/title="(.*)"/)[1]
+    var titleMatch = match.match(/title="(.*)"/)
+    var title = (titleMatch && titleMatch[1]) || defaultTitle
     html = html.replace(match, langSectionTitle(lang, title))
   })
   return html
 }
 
 function langSectionTitle (lang, title) {
-  var langLabel = langMap[lang.toLowerCase()]
+  var langLabel = langMap[lang.toLowerCase()] || lang
   return '<h2 class="lang-section-header" title="'+ lang + '">' + langLabel + ': ' + title +'</h2>'
 }
