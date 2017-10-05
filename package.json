@@ -47,6 +47,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.9.3",
     "express-validator": "^2.7.0",
+    "font-awesome": "^4.7.0",
     "got": "^6.6.3",
     "inv-utils": "^2.1.0",
     "jade": "*",
@@ -63,6 +64,7 @@
     "passport-local": "^1.0.0",
     "semver": "^2.3.2",
     "serve-favicon": "^2.1.7",
+    "simplemde": "^1.11.2",
     "transliteration": "^0.1.1"
   },
   "devDependencies": {

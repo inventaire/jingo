@@ -10,3 +10,6 @@ bundle*
 public/js/multilang.min.js
 public/js/app.min.js
 public/css/style.css
+public/vendor/fonts
+public/vendor/simplemde
+public/vendor/font-awesome

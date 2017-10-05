@@ -135,47 +135,12 @@
       }
     },
 
-    preview: function () {
-      $('#preview').modal({keyboard: true, show: true, backdrop: false})
-      $.post(proxyPath + '/misc/preview', {data: $('#editor').val()}, function (data) {
-        $('#preview .modal-body').html(data).get(0).scrollTop = 0
-        markMissingPagesAsAbsent('#preview .modal-body')
-      })
-    },
-
-    save: function () {
-      $('form.edit').submit()
-    },
-
-    toggleFullscreen: function () {
-      var isFullscreen = Jingo.cmInstance.getOption('fullScreen')
-
-      Jingo.cmInstance.setOption('fullScreen', !Jingo.cmInstance.getOption('fullScreen'))
-      Jingo.cmInstance.focus()
-
-      $toolbar.toggleClass('fullscreen', !isFullscreen)
-    },
-
-    toolbar: function () {
-      $toolbar = $("<ul class='toolbar'>")
-      /* eslint-disable */
-      $toolbar.append('<li title="Toggle fullscreen (Ctrl/Cmd+Enter)" class="fullscreen"><span></span></li>\
-        <li title="Syntax help" class="info"><span></span></li>\
-        <li title="Preview" class="preview"><span></span></li></ul>').insertBefore($('form.edit textarea:first').closest('div'))
-      /* eslint-enable */
-
-      $('ul.toolbar').on('click', 'span', function () {
-        if (this.parentNode.className === 'info') {
-          Jingo.markdownSyntax()
-        }
-        if (this.parentNode.className === 'preview') {
-          Jingo.cmInstance.save()
-          Jingo.preview()
-        }
-        if (this.parentNode.className === 'fullscreen') {
-          Jingo.toggleFullscreen()
-        }
-      })
+    // SimpleMDE links to its own syntax guide
+    customizeSyntaxGuide: function () {
+      $el = $('a[title="Markdown Guide"]')
+      $el[0].title = 'Syntax Guide'
+      $el[0].removeAttribute('href')
+      $el.click(Jingo.markdownSyntax)
     },
 
     markdownSyntax: function () {
@@ -184,6 +149,15 @@
         $('#syntax-reference .modal-body').load(proxyPath + '/misc/syntax-reference')
         cheatsheetShown = true
       }
+    },
+
+    previewRender: function(plainText, previewEL) {
+      const text = evalTags(extractTags(plainText))
+      return SimpleMDE.prototype.markdown(text)
+    },
+
+    save: function () {
+      $('form.edit').submit()
     }
   }
 
@@ -191,8 +165,10 @@
     var pages = []
     var match
     var href
+    // Also accept elements
+    var $el = $(selector)
 
-    $(selector + ' a.internal').each(function (i, a) {
+    $(selector).find('a.internal').each(function (i, a) {
       href = $(a).attr('href')
       href = href.slice(proxyPath.length)
       match = /\/wiki\/(.+)/.exec(href)
@@ -207,9 +183,101 @@
         var hash = a.split('#')[1]
         var url = proxyPath.split('/').join('\\/') + '\\/wiki\\/' + encodeURIComponent(name)
         if (hash) url += '#' + hash
-        $(selector + " a[href='" + url + "']").addClass('absent')
+        $el.find("a[href='" + url + "']").addClass('absent')
       })
     })
+  }
+
+  var tagmap = {}
+
+  // Yields the content with the rendered [[bracket tags]]
+  // The rules are the same for Gollum https://github.com/github/gollum
+  function extractTags (text) {
+    tagmap = {}
+
+    var matches = text.match(/\[\[(.+?)\]\]/g)
+    var tag, id
+
+    if (matches) {
+      matches.forEach(function (match) {
+        match = match.trim()
+        tag = /(.?)\[\[(.+?)\]\](.?)/.exec(match)
+        if (tag[1] === "'") return
+        id = hashCode(tag[2])
+        tagmap[id] = tag[2]
+        text = text.replace(tag[0], id)
+      })
+    }
+    return text
+  }
+
+  function evalTags (text) {
+    var parts, name, url, pageName, re, urlHash
+
+    for (var k in tagmap) {
+      if (tagmap.hasOwnProperty(k)) {
+        parts = tagmap[k].split('|')
+        // Parts are inverted comparing to claudioc/jingo
+        // to match the order in Wikipedia: [[page name|text to display]]
+        pageName = name = parts[0].trim()
+        if (parts[1]) {
+          name = parts[1].trim()
+        }
+        pageName = pageName.split('#')[0]
+        urlHash = pageName.split('#')[1]
+        // Build the url without the hash to avoid getting the '#' escaped
+        url = wikify(pageName)
+        // Then, re-add it
+        if (urlHash) url += '#' + urlHash
+
+        tagmap[k] = '<a class="internal" href="' + url + '">' + name + '</a>'
+      }
+    }
+
+    for (k in tagmap) {
+      if (tagmap.hasOwnProperty(k)) {
+        re = new RegExp(k, 'g')
+        text = text.replace(re, tagmap[k])
+      }
+    }
+
+    return text
+  }
+
+  function wikify (str) {
+    if (typeof str !== 'string' || str.trim() === '') return ''
+
+    var spaceReplacement = '-'
+
+    str = str
+      // Replace < and > with '' (Gollum replaces it with '-')
+      .replace(/[<>]/g, '')
+      // Replace / with '+' (Gollum replaces it with '')
+      .replace(/\//g, '+')
+      .trim()
+      .replace(/\s/g, spaceReplacement)
+
+    return '/wiki/' + str
+  }
+
+  // adapted from http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+  function hashCode (string) {
+    var hash = 0
+    var i = 0
+    var len = string.length
+    if (len === 0) return hash
+
+    var char
+
+    while (i < len) {
+      char = string.charCodeAt(i)
+      hash = ((hash << 5) - hash) + char
+      // Convert to 32bit integer
+      hash |= 0
+      i++
+    }
+
+    return Math.abs(hash)
   }
 
   window.Jingo = Jingo

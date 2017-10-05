@@ -679,6 +679,7 @@ a.btn-auth:hover {
 
 @import './container';
 @import './footer';
+@import './simplemde_overrides';
 
 /*Small screens*/
 @media screen and (max-width: 768px) {
@@ -731,20 +732,5 @@ a.btn-auth:hover {
   #title-wrapper h1{
     // Prevent the header and #page-controls to overlap
     padding-right: 8em;
-  }
-  .tools {
-    opacity: 0.9;
-    transition: opacity 0.2s;
-    margin-right: 10em;
-  }
-  .tools:hover{
-    opacity: 1;
-  }
-}
-
-/*Medium screens*/
-@media screen and (min-width: 768px) and (max-width: 1000px) {
-  .tools{
-    margin-right: 2em;
   }
 }

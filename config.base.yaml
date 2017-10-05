@@ -25,7 +25,7 @@ authentication:
     inventaire:
       host: 'http://localhost:3006'
 features:
-  codemirror: true
+  simplemde: true
 server:
   hostname: localhost
   port: 6067

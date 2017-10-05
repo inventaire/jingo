@@ -7,11 +7,9 @@ DEVMODE=$1
 
 CSS_BUNDLE=./public/css/bundle.min.css
 JS_BUNDLE=./public/js/bundle.min.js
-CODEMIRROR_BUNDLE=./public/css/bundle-codemirror.min.css
 
 # reset bundles
 rm -f $JS_BUNDLE $CSS_BUNDLE
-[ $DEVMODE ] ||rm -f $CODEMIRROR_BUNDLE
 
 logsize(){ [ $DEVMODE ] ||du -sh $@ ; }
 
@@ -51,8 +49,16 @@ uglifyjs ./public/js/multilang.js -c -m -o ./public/js/multilang.min.js
 ###
 [ $DEVMODE ] ||compressFile ./public/js/multilang.min.js
 
-log '\n---- JS CODEMIRROR'
-[ $DEVMODE ] ||compressFile ./public/vendor/codemirror/codemirror.min.js
+log '\n---- JS SIMPLEMDE'
+mkdir -p ./public/vendor/simplemde
+cp ./node_modules/simplemde/dist/* ./public/vendor/simplemde
+
+log '\n---- CSS/FONT FONT-AWESOME'
+mkdir -p ./public/vendor/font-awesome ./public/vendor/fonts
+cp ./node_modules/font-awesome/css/font-awesome.min.css ./public/vendor/font-awesome/css
+# That's where the css will be looking for the fonts
+mkdir -p ./public/vendor/fonts
+cp ./node_modules/font-awesome/fonts/* ./public/vendor/fonts
 
 log '\n---- CSS SRC FILES'
 ### RUN IN DEV MODE
@@ -68,13 +74,6 @@ log '---- CSS BUNDLE'
 logsize $CSS_BUNDLE
 applyPostCss $CSS_BUNDLE
 compressFile $CSS_BUNDLE
-
-log '\n---- CSS CODEMIRROR BUNDLE'
-[ $DEVMODE ] ||addFile ./public/css/codemirror-ext.css $CODEMIRROR_BUNDLE &&
-addFile ./public/vendor/codemirror/codemirror.css $CODEMIRROR_BUNDLE &&
-addFile ./public/vendor/codemirror/fullscreen.css $CODEMIRROR_BUNDLE &&
-applyPostCss $CODEMIRROR_BUNDLE &&
-compressFile $CODEMIRROR_BUNDLE
 
 log '\n FONTS COMPRESSION'
 compressFile ./public/fonts/ionicons.ttf

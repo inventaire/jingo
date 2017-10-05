@@ -1,6 +1,5 @@
 .container{
-  a[href^="https://"],
-  a[href^="http://"] {
+  a:not(.fa)[href^="https://"], a:not(.fa)[href^="http://"] {
     background: url(../img/ext.png) center right no-repeat;
     padding-right: 13px;
   }
