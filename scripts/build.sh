@@ -34,7 +34,7 @@ log(){ [ $DEVMODE ] ||echo $1 ; }
 
 log '---- JS SRC FILES'
 ### RUN IN DEV MODE
-browserify ./app/index.js -o ./public/js/app.js
+browserify ./client/app/app.js -o ./public/js/app.js
 addFile ./public/vendor/jquery.min.js $JS_BUNDLE &&
 addFile ./public/vendor/bootstrap/js/bootstrap.min.js $JS_BUNDLE &&
 uglifyjs ./public/js/app.js -c -m -o ./public/js/app.min.js
@@ -44,7 +44,7 @@ log '---- JS BUNDLE' &&
 compressFile $JS_BUNDLE
 
 log '\n---- JS MULTILANG'
-browserify ./app/multilang.js -o ./public/js/multilang.js
+browserify ./client/multilang/multilang.js -o ./public/js/multilang.js
 logsize ./public/js/multilang.js
 ### RUN IN DEV MODE
 uglifyjs ./public/js/multilang.js -c -m -o ./public/js/multilang.min.js
