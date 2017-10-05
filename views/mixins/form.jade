@@ -64,14 +64,7 @@ mixin featuresJavaScripts()
   if hasFeature('simplemde')
     +asset("/vendor/simplemde/simplemde.min.js")
     script.
-      var simplemde = new SimpleMDE({
-        element: document.getElementById('editor'),
-        spellChecker: false,
-        autoDownloadFontAwesome: false,
-        promptURLs: true,
-        status: false,
-        previewRender: Jingo.previewRender
-      })
+      Jingo.initSimpleMDE()
       Jingo.customizeSyntaxGuide()
 
 mixin multiLang()

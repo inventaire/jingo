@@ -18,3 +18,46 @@ $lang-section-color: rgba(#123456, 0.5);
   color: white;
   background-color: $lang-section-color !important;
 }
+
+$fullscreen-editor-bottom: 50px;
+
+.CodeMirror-fullscreen, .editor-preview-side{
+  bottom: $fullscreen-editor-bottom !important;
+}
+
+.form-group.fullscreen, .well.fullscreen{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $fullscreen-editor-bottom;
+  z-index: 100;
+  margin-bottom: 0 !important;
+  display: flex;
+  justify-items: center;
+  align-content: center;
+  padding: 0 !important;
+  background-color: #aaa;
+  border: 0;
+  border-radius: 0;
+}
+.form-group.fullscreen{
+  right: 20%;
+  #message{
+    margin: 6px 10px 0 20px;
+    max-width: 800px;
+  }
+}
+.well.fullscreen{
+  left: 80%;
+  input.btn[type="submit"]{
+    flex: 2 0 auto;
+    margin: 5px;
+  }
+  a.btn{
+    margin: 5px;
+    flex: 1 0 auto;
+    padding: 10px 20px;
+    background-color: #eee;
+  }
+}

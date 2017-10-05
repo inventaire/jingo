@@ -1,5 +1,6 @@
 /* global jQuery */
 
+var utils = require('./utils')
 var renderTags = require('./render_tags')
 var existance = require('./existance')
 var init = require('./init')
@@ -21,12 +22,46 @@ var Jingo = window.Jingo = {
     var pathname = window.location.pathname
 
     if (/^\/pages\/.*\/edit/.test(pathname) || /^\/pages\/new/.test(pathname)) {
-      init.editPage()
+      init.initEditPage()
     }
 
     if (/^\/wiki\//.test(pathname)) {
       existance.markMissingPagesAsAbsent('#content')
     }
+  },
+
+  initSimpleMDE: function () {
+    var simplemde = new SimpleMDE({
+      element: document.getElementById('editor'),
+      spellChecker: false,
+      autoDownloadFontAwesome: false,
+      promptURLs: true,
+      status: false,
+      previewRender: Jingo.previewRender
+    })
+
+    var $toolbar = $('.editor-toolbar')
+    var $messageGroup = $('#message').parent()
+    var $saveGroup = $('.well')
+    var lastToolbarState
+
+    // Keep the message input and save and cancel buttons visible
+    // when in fullscreen
+    var updateMessageAndSave = function(){
+      var isFullScreen = $toolbar.hasClass('fullscreen')
+      if (isFullScreen !== lastToolbarState) {
+        lastToolbarState = isFullScreen
+        if (isFullScreen) {
+          $messageGroup.addClass('fullscreen')
+          $saveGroup.addClass('fullscreen')
+        } else {
+          $messageGroup.removeClass('fullscreen')
+          $saveGroup.removeClass('fullscreen')
+        }
+      }
+    }
+
+    simplemde.codemirror.on('update', utils.debounce(updateMessageAndSave, 50))
   },
 
   // SimpleMDE links to its own syntax guide
