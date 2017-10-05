@@ -153,6 +153,8 @@
 
     previewRender: function(plainText, previewEL) {
       const text = evalTags(extractTags(plainText))
+      // Trigger after the DOM was updated
+      setTimeout(markMissingPagesAsAbsent.bind(null, previewEL), 10)
       return SimpleMDE.prototype.markdown(text)
     },
 
@@ -161,10 +163,14 @@
     }
   }
 
+  var pagesExistanceMap = {}
+
   function markMissingPagesAsAbsent (selector) {
-    var pages = []
+    var missingPages = []
+    var knownPages = []
     var match
     var href
+    var page
     // Also accept elements
     var $el = $(selector)
 
@@ -173,27 +179,56 @@
       href = href.slice(proxyPath.length)
       match = /\/wiki\/(.+)/.exec(href)
       if (match) {
-        pages.push(decodeURIComponent(match[1]))
+        page = decodeURIComponent(match[1])
+        if (pagesExistanceMap[page] != null) {
+          knownPages.push(page)
+        } else {
+          missingPages.push(page)
+        }
       }
     })
 
-    $.getJSON(proxyPath + '/misc/existence', {data: pages}, function (result) {
-      $.each(result.data, function (href, a) {
-        var name = a.split('#')[0]
-        var hash = a.split('#')[1]
-        var url = proxyPath.split('/').join('\\/') + '\\/wiki\\/' + encodeURIComponent(name)
-        if (hash) url += '#' + hash
-        $el.find("a[href='" + url + "']").addClass('absent')
+
+    if (missingPages.length === 0) return lazyUpdateKnownPages($el, knownPages)
+
+    $.getJSON(proxyPath + '/misc/existence', {data: missingPages}, function (result) {
+      var confirmedMissingPages = result.data
+      missingPages.forEach(function (page) {
+        if (confirmedMissingPages.indexOf(page) === -1) {
+          pagesExistanceMap[page] = true
+        } else {
+          displayAsAbsent($el, page)
+          pagesExistanceMap[page] = false
+        }
       })
+      lazyUpdateKnownPages($el, knownPages)
     })
   }
 
-  var tagmap = {}
+  function updateKnownPages ($el, knownPages) {
+    knownPages.forEach(function (page) {
+      var pageExists = pagesExistanceMap[page]
+      if (!pageExists) displayAsAbsent($el, page)
+    })
+  }
+
+  var lazyUpdateKnownPages = debounce(updateKnownPages, 400)
+
+  function displayAsAbsent ($el, page) {
+    var name = page.split('#')[0]
+    var hash = page.split('#')[1]
+    var url = '/wiki/' + encodeURIComponent(name)
+    if (hash) url += '#' + hash
+    var $link = $el.find("a[href='" + url + "']")
+    if (!$link.hasClass('absent')) $link.addClass('absent')
+  }
+
+  var tagMap = {}
 
   // Yields the content with the rendered [[bracket tags]]
   // The rules are the same for Gollum https://github.com/github/gollum
   function extractTags (text) {
-    tagmap = {}
+    tagMap = {}
 
     var matches = text.match(/\[\[(.+?)\]\]/g)
     var tag, id
@@ -204,7 +239,7 @@
         tag = /(.?)\[\[(.+?)\]\](.?)/.exec(match)
         if (tag[1] === "'") return
         id = hashCode(tag[2])
-        tagmap[id] = tag[2]
+        tagMap[id] = tag[2]
         text = text.replace(tag[0], id)
       })
     }
@@ -212,32 +247,38 @@
   }
 
   function evalTags (text) {
-    var parts, name, url, pageName, re, urlHash
+    var parts, name, url, pageName, re, urlHash, wikiName, absent
 
-    for (var k in tagmap) {
-      if (tagmap.hasOwnProperty(k)) {
-        parts = tagmap[k].split('|')
+    for (var k in tagMap) {
+      if (tagMap.hasOwnProperty(k)) {
+        parts = tagMap[k].split('|')
         // Parts are inverted comparing to claudioc/jingo
         // to match the order in Wikipedia: [[page name|text to display]]
         pageName = name = parts[0].trim()
-        if (parts[1]) {
-          name = parts[1].trim()
-        }
+        if (parts[1]) name = parts[1].trim()
         pageName = pageName.split('#')[0]
         urlHash = pageName.split('#')[1]
         // Build the url without the hash to avoid getting the '#' escaped
-        url = wikify(pageName)
+        wikiName = wikify(pageName)
+
+        if (pagesExistanceMap[wikiName] != null && !pagesExistanceMap[wikiName]) {
+          absent = 'absent'
+        } else {
+          absent = ''
+        }
+
+        url = '/wiki/' + wikiName
         // Then, re-add it
         if (urlHash) url += '#' + urlHash
 
-        tagmap[k] = '<a class="internal" href="' + url + '">' + name + '</a>'
+        tagMap[k] = '<a class="internal ' + absent + '" href="' + url + '">' + name + '</a>'
       }
     }
 
-    for (k in tagmap) {
-      if (tagmap.hasOwnProperty(k)) {
+    for (k in tagMap) {
+      if (tagMap.hasOwnProperty(k)) {
         re = new RegExp(k, 'g')
-        text = text.replace(re, tagmap[k])
+        text = text.replace(re, tagMap[k])
       }
     }
 
@@ -257,7 +298,21 @@
       .trim()
       .replace(/\s/g, spaceReplacement)
 
-    return '/wiki/' + str
+    return str
+  }
+
+  // Inspired by https://davidwalsh.name/javascript-debounce-function
+  function debounce(func, wait) {
+    var timeout
+    return function() {
+      var context = this, args = arguments
+      var later = function() {
+        timeout = null
+        func.apply(context, args)
+      }
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
+    }
   }
 
   // adapted from http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
