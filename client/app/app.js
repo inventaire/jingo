@@ -62,6 +62,14 @@ var Jingo = window.Jingo = {
     }
 
     simplemde.codemirror.on('update', utils.debounce(updateMessageAndSave, 50))
+
+    // Listen for key events that aren't handled by SimpleMDE
+    $('#content').keydown(function (e) {
+      // Ctrl+Enter
+      if (e.ctrlKey && e.keyCode === 13) Jingo.save()
+      // Esc
+      if (e.keyCode === 27) Jingo.cancel()
+    })
   },
 
   // SimpleMDE links to its own syntax guide
@@ -90,5 +98,9 @@ var Jingo = window.Jingo = {
 
   save: function () {
     $('form.edit').submit()
+  },
+
+  cancel: function () {
+    $('.cancel')[0].click()
   }
 }

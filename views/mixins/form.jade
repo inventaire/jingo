@@ -42,9 +42,9 @@ mixin tools(action, pageName)
 
 mixin saveAndCancel(cancelRedirect)
   .well
-    input(type='submit',value='Save',title='Save (Ctrl/Cmd+s)').btn.btn-primary
+    input(type='submit',value='Save',title='Save (Ctrl+Enter)').btn.btn-primary
     |&nbsp;
-    +anchor(coalesce(cancelRedirect, "/"), "Cancel").btn
+    +anchor(coalesce(cancelRedirect, "/"), "Cancel").btn.cancel
 
 mixin errors(err)
   -var errors = locals.errors;
