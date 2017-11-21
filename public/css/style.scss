@@ -330,6 +330,25 @@ hr {
   border-color: #111;
 }
 
+.header-wrapper{
+  position: relative;
+  a{
+    color: #555;
+    position: absolute;
+    left: -0.8em;
+    font-size: 1.5em;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    height: 100%;
+  }
+  &:hover{
+    a{
+      opacity: 1;
+    }
+  }
+}
+
 /* Overrides Bootstrap */
 
 .navbar{
