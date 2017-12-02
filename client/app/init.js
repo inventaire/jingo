@@ -25,8 +25,10 @@ module.exports = {
     })
   },
 
-  compare: function () {
-    $('#rev-compare').attr('disabled', true)
+  compare: function (proxyPath) {
+    if ($('.history td :checked').length < 2) {
+      $('#rev-compare').attr('disabled', true)
+    }
 
     $('#rev-compare').on('click', function () {
       var $hCol1 = $('.history td:first-child')

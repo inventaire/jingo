@@ -11,7 +11,7 @@ var proxyPath
 
 var Jingo = window.Jingo = {
   init: function (setProxyPath) {
-    proxyPath = setProxyPath
+    proxyPath = setProxyPath || ''
 
     init.setFocus()
     init.setLoginRedirection()
@@ -23,6 +23,10 @@ var Jingo = window.Jingo = {
 
     if (/^\/pages\/.*\/edit/.test(pathname) || /^\/pages\/new/.test(pathname)) {
       init.initEditPage()
+    }
+
+    if (/^\/wiki\/.*\/history/.test(pathname)) {
+      init.compare(proxyPath)
     }
 
     if (/^\/wiki\//.test(pathname)) {
