@@ -108,7 +108,7 @@ function _getWikiPage (req, res) {
       const description = removeMd(langContent)
         .trim()
         .replace(/\n/g, ' — ')
-        .replace(/—\s+—/g, ' — ')
+        .replace(/—\s+—/g, '—')
         .slice(0, 250)
 
       const data = {
