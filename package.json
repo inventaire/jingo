@@ -63,6 +63,7 @@
     "node-syntaxhighlighter": "*",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
+    "remove-markdown": "^0.2.2",
     "semver": "^2.3.2",
     "serve-favicon": "^2.1.7",
     "simplemde": "^1.11.2",

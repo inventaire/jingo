@@ -1,11 +1,13 @@
 /* global Git */
 
 var router = require('express').Router()
+const removeMd = require('remove-markdown')
 var renderer = require('../lib/renderer')
 var models = require('../lib/models')
 var corsEnabler = require('../lib/cors-enabler')
 var app = require('../lib/app').getInstance()
 var log = require('../lib/log')
+var { extratFirstImageUrlFromMarkdown } = require('../lib/tools')
 
 var publicHost = app.locals.config.get('server').publicHost
 var appTitle = app.locals.config.get('application').title
@@ -96,12 +98,22 @@ function _getWikiPage (req, res) {
         ${contentHtml}
       </section>
       `
-      res.render('show', {
-        page: page,
+      const description = removeMd(page.content)
+        .trim()
+        .replace(/\n/g, ' — ')
+        .replace(/—\s+—/g, ' — ')
+        .slice(0, 250)
+
+      const data = {
+        page,
         title: page.title + ' – ' + appTitle,
         url: publicHost + '/wiki/' + page.wikiname,
+        description,
+        image: extratFirstImageUrlFromMarkdown(page.content),
         content: html
-      })
+      }
+
+      res.render('show', data)
     } else {
       if (req.user) {
         // Try sorting out redirect loops with case insentive fs

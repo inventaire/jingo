@@ -21,7 +21,7 @@ include mixins/links
       meta(property="og:title", content="#{title}")
       //- facebook guesses the description from the content so it's ok to pass it an empty description
       meta(name="description", property="og:description", content="#{coalesce(description, '')}")
-      meta(property="og:image", content="https://wiki.inventaire.io/img/screenshot.png")
+      meta(property="og:image", content="#{coalesce(image, 'https://wiki.inventaire.io/img/screenshot.png')}")
 
       +asset("/css/bundle.min.css")
       link(rel="icon", type="image/png", href="/img/inv-dark-grey-32px.png")
