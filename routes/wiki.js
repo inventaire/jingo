@@ -7,7 +7,7 @@ var models = require('../lib/models')
 var corsEnabler = require('../lib/cors-enabler')
 var app = require('../lib/app').getInstance()
 var log = require('../lib/log')
-var { extratFirstImageUrlFromMarkdown } = require('../lib/tools')
+var { extratFirstImageUrlFromMarkdown, splitContentByLang } = require('../lib/tools')
 
 var publicHost = app.locals.config.get('server').publicHost
 var appTitle = app.locals.config.get('application').title
@@ -98,7 +98,14 @@ function _getWikiPage (req, res) {
         ${contentHtml}
       </section>
       `
-      const description = removeMd(page.content)
+
+      // If a lang is passed in the URL,
+      // take only the language part into account to build the meta headers
+      const lang = req.query.lang || 'en'
+      const langParts = splitContentByLang(page.content)
+      const langContent = (langParts && langParts[lang]) || page.content
+
+      const description = removeMd(langContent)
         .trim()
         .replace(/\n/g, ' — ')
         .replace(/—\s+—/g, ' — ')
@@ -109,7 +116,7 @@ function _getWikiPage (req, res) {
         title: page.title + ' – ' + appTitle,
         url: publicHost + '/wiki/' + page.wikiname,
         description,
-        image: extratFirstImageUrlFromMarkdown(page.content),
+        image: extratFirstImageUrlFromMarkdown(langContent),
         content: html
       }
 

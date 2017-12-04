@@ -1,8 +1,8 @@
-var langMarkupPattern = /<!--\s?LANG:\w{2}.*-->/g
+var globalLangMarkupPattern = require('./shared').globalLangMarkupPattern
 var langMap = require('../multilang/lang_map')
 
 module.exports = function (html, defaultTitle) {
-  var matches = html.match(langMarkupPattern)
+  var matches = html.match(globalLangMarkupPattern)
   matches.forEach(function (match) {
     var lang = match.match(/LANG:(\w{2})/)[1]
     var titleMatch = match.match(/title="(.*)"/)
