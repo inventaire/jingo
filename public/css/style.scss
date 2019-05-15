@@ -245,20 +245,20 @@ hr {
   margin: 10px 0;
 }
 
-#content > table {
+#content table {
   display: block;
   width: 100%;
   overflow: auto;
   margin-bottom: 16px;
 }
 
-#content > table td,
-#content > table th {
+#content table td,
+#content table th {
   padding: 6px 13px;
   border: 1px solid #ddd;
 }
 
-#content > table thead {
+#content table thead {
   background-color: #eee;
 }
 
