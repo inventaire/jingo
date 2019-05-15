@@ -1,6 +1,7 @@
 node_modules/*
 config.yaml
 config.yml
+data
 data/*
 db
 etc/jingo.service
