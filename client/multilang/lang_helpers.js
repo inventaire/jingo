@@ -1,4 +1,10 @@
-var parseKeyValueString = require('./parse_key_value_string')
+var parseKeyValueString = function (str) {
+  return str.split('&').reduce(function (data, part) {
+    var parts = part.split('=')
+    data[parts[0]] = parts[1]
+    return data
+  }, {})
+}
 
 var guessLang = function () {
   var browserLang = navigator.language || navigator.userLanguage
