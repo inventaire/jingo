@@ -122,7 +122,7 @@ function _postPages (req, res) {
 
   page.author = req.user.asGitAuthor
   page.title = req.body.pageTitle
-  page.content = req.body.content
+  page.content = cleanupContent(req.body.content)
 
   page.save().then(function () {
     req.session.notice = 'The page has been created. <a href="' + page.urlForEdit() + '">Edit it again?</a>'
@@ -218,6 +218,15 @@ function _putPages (req, res) {
   }
 }
 
+const cleanupContent = content => {
+  return content
+  .split('\n')
+  // Somewhere, somehow, lines get prefixed by a white space
+  // so this drops it
+  .map(line => line.trim())
+  .join('\n')
+}
+
 function _redirectPage (req, res) {
   res.redirect(`${proxyPath}/wiki/${req.params.page}`)
 }
@@ -236,7 +245,7 @@ function _getPagesEdit (req, res) {
     if (!req.session.formData) {
       res.locals.formData = {
         pageTitle: page.title,
-        content: page.content
+        content: cleanupContent(page.content)
       }
     } else {
       res.locals.formData = req.session.formData
@@ -251,11 +260,9 @@ function _getPagesEdit (req, res) {
     delete req.session.errors
     delete req.session.formData
 
-    res.render('edit', {
-      title: `${appTitle} – Edit page ${page.title}`,
-      page: page,
-      warning: warning
-    })
+    var title = `${appTitle} – Edit page ${page.title}`
+
+    res.render('edit', { title, page, warning })
   })
 }
 
