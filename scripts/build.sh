@@ -53,7 +53,9 @@ uglifyjs ./public/js/multilang.js -c -m -o ./public/js/multilang.min.js
 
 log '\n---- JS SIMPLEMDE'
 mkdir -p ./public/vendor/simplemde
-cp ./node_modules/simplemde/dist/* ./public/vendor/simplemde
+browserify ./node_modules/simplemde -s SimpleMDE -o ./public/vendor/simplemde/simplemde.js
+uglifyjs ./public/vendor/simplemde/simplemde.js -c -m -o ./public/vendor/simplemde/simplemde.min.js
+cp ./node_modules/simplemde/dist/*css ./public/vendor/simplemde
 compressFile ./public/vendor/simplemde/simplemde.min.css
 compressFile ./public/vendor/simplemde/simplemde.min.js
 
