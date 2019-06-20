@@ -65,7 +65,7 @@
     "remove-markdown": "^0.2.2",
     "semver": "^2.3.2",
     "serve-favicon": "^2.1.7",
-    "simplemde": "^1.11.2",
+    "simplemde": "git+https://github.com/inventaire/simplemde-markdown-editor.git",
     "transliteration": "^0.1.1"
   },
   "devDependencies": {
