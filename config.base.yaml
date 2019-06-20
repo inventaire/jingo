@@ -9,7 +9,7 @@ application:
   git: git
   skipGitCheck: false
   loggingMode: 1
-  pedanticMarkdown: true
+  pedanticMarkdown: false
   gfmBreaks: true
   staticWhitelist: '/\.png$/i, /\.jpg$/i, /\.gif$/i'
   proxyPath: ''
