@@ -222,8 +222,8 @@ const cleanupContent = content => {
   return content
   .split('\n')
   // Somewhere, somehow, lines get prefixed by a white space
-  // so this drops it
-  .map(line => line.trim())
+  // so this drops it, unless its a
+  .map(line => line.replace(/^\s+([^\s*\-])/, '$1'))
   .join('\n')
 }
 
