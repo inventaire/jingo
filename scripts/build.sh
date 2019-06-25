@@ -20,12 +20,12 @@ addFile(){
 }
 
 compressFile(){
-  [ $DEVMODE ] ||gzip -9kf $1
+  [ $DEVMODE ] || gzip -9kf $1
   logsize $1*
 }
 
 applyPostCss(){
-  [ $DEVMODE ] ||postcss --use autoprefixer --autoprefixer.browsers "> 5%" \
+  [ $DEVMODE ] || postcss --use autoprefixer --autoprefixer.browsers "> 5%" \
                           --use cssnano \
                           -o $1 $1
 }
@@ -33,22 +33,18 @@ applyPostCss(){
 log(){ [ $DEVMODE ] ||echo $1 ; }
 
 log '---- JS SRC FILES'
-### RUN IN DEV MODE
 browserify ./client/app/app.js -o ./public/js/app.js
 addFile ./public/vendor/jquery.min.js $JS_BUNDLE &&
 addFile ./public/vendor/bootstrap/js/bootstrap.min.js $JS_BUNDLE &&
 uglifyjs ./public/js/app.js -c -m -o ./public/js/app.min.js
 addFile ./public/js/app.min.js $JS_BUNDLE &&
-###
 log '---- JS BUNDLE' &&
 compressFile $JS_BUNDLE
 
 log '\n---- JS MULTILANG'
 browserify ./client/multilang/multilang.js -o ./public/js/multilang.js
 logsize ./public/js/multilang.js
-### RUN IN DEV MODE
 uglifyjs ./public/js/multilang.js -c -m -o ./public/js/multilang.min.js
-###
 [ $DEVMODE ] ||compressFile ./public/js/multilang.min.js
 
 log '\n---- JS SIMPLEMDE'
@@ -69,14 +65,12 @@ mkdir -p ./public/vendor/fonts
 cp ./node_modules/font-awesome/fonts/* ./public/vendor/fonts
 
 log '\n---- CSS SRC FILES'
-### RUN IN DEV MODE
 addFile ./public/vendor/bootstrap/css/bootstrap.min.css $CSS_BUNDLE
 node-sass ./public/css/style.scss > ./public/css/style.css
 [ $DEVMODE ] && sed -i 's@https://inventaire.io@http://localhost:3006@' ./public/css/style.css
 addFile ./public/css/style.css $CSS_BUNDLE
 addFile ./public/css/ionicons.min.css $CSS_BUNDLE
 addFile ./public/css/shCoreDefault.css $CSS_BUNDLE
-###
 
 log '---- CSS BUNDLE'
 logsize $CSS_BUNDLE
