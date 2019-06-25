@@ -1,0 +1,92 @@
+// For colors list, see https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
+
+.square, .circle, .triangle{
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+}
+
+.square, .circle{
+  transform: translateY(0.2em);
+}
+
+.circle{
+  border-radius: 1em;
+}
+
+// Adapted from http://apps.eky.hk/css-triangle-generator/
+.triangle{
+  &.up, &.down, &.left, &.right{
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  &.up{
+    border-width: 0 0.5em 0.87em 0.5em;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+  }
+  &.down{
+    transform: translateY(0.2em);
+    border-width: 0.87em 0.5em 0 0.5em;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+  }
+  &.left{
+    transform: translateY(0.2em);
+    border-width: 0.5em 0.87em 0.5em 0;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  &.right{
+    transform: translateY(0.2em);
+    border-width: 0.5em 0 0.5em 0.87em;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+}
+
+.square, .circle{
+  color: transparent;
+  &.black{ background-color: black }
+  &.silver{ background-color: silver }
+  &.gray{ background-color: gray }
+  &.white{ background-color: white }
+  &.maroon{ background-color: maroon }
+  &.red{ background-color: red }
+  &.purple{ background-color: purple }
+  &.fuchsia{ background-color: fuchsia }
+  &.green{ background-color: green }
+  &.lime{ background-color: lime }
+  &.olive{ background-color: olive }
+  &.yellow{ background-color: yellow }
+  &.navy{ background-color: navy }
+  &.blue{ background-color: blue }
+  &.teal{ background-color: teal }
+  &.cyan{ background-color: cyan } // a.k.a. aqua
+  &.orange{ background-color: orange }
+}
+
+.triangle{
+  &.black{ color: black }
+  &.silver{ color: silver }
+  &.gray{ color: gray }
+  &.white{ color: white }
+  &.maroon{ color: maroon }
+  &.red{ color: red }
+  &.purple{ color: purple }
+  &.fuchsia{ color: fuchsia }
+  &.green{ color: green }
+  &.lime{ color: lime }
+  &.olive{ color: olive }
+  &.yellow{ color: yellow }
+  &.navy{ color: navy }
+  &.blue{ color: blue }
+  &.teal{ color: teal }
+  &.cyan{ color: cyan } // a.k.a. aqua
+  &.orange{ color: orange }
+}
