@@ -6,6 +6,7 @@ Node.js based Wiki, customized for the needs of inventaire.io https://wiki.inven
 - authentification uses [inventaire](http://github.com/inventaire/inventaire) API
 - user pictures are taken from their inventaire profile
 - multilangue
+- redirection support: `#REDIRECT[[Home]]`
 
 ## Install
 ```sh
