@@ -91,6 +91,10 @@ function _getWikiPage (req, res) {
 
       const redirectData = page.content.match(redirectPattern)
 
+      console.log('page.content', page.content)
+
+      console.log('redirectData', redirectData)
+
       if (redirectData && req.query.redirect !== 'false') {
         const distinationPage = redirectData[1]
         return res.redirect(`/wiki/${distinationPage}`)
