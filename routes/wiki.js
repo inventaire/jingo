@@ -12,6 +12,7 @@ var { extratFirstImageUrlFromMarkdown, splitContentByLang } = require('../lib/to
 var publicHost = app.locals.config.get('server').publicHost
 var appTitle = app.locals.config.get('application').title
 var proxyPath = app.locals.config.getProxyPath()
+const redirectPattern = /^#REDIRECT\[\[([\w-]+)\]\]$/
 
 models.use(Git)
 
@@ -88,7 +89,15 @@ function _getWikiPage (req, res) {
       res.locals.notice = req.session.notice
       delete req.session.notice
 
+      const redirectData = page.content.match(redirectPattern)
+
+      if (redirectData && req.query.redirect !== 'false') {
+        const distinationPage = redirectData[1]
+        return res.redirect(`/wiki/${distinationPage}`)
+      }
+
       var contentHtml = renderer.render(page.content)
+
       var html = `
       <section id="title-wrapper">
         <h1>${page.title}</h1>
