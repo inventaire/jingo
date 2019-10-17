@@ -93,7 +93,9 @@ function _getWikiPage (req, res) {
 
       if (redirectData && req.query.redirect !== 'false') {
         const distinationPage = redirectData[1]
-        return res.redirect(`/wiki/${distinationPage}`)
+        var distination = `/wiki/${distinationPage}`
+        if (req._parsedUrl.query) distination += `?${req._parsedUrl.query}`
+        return res.redirect(distination)
       }
 
       var contentHtml = renderer.render(page.content)
