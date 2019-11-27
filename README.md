@@ -8,10 +8,19 @@ Node.js based Wiki, customized for the needs of inventaire.io https://wiki.inven
 - multilangue
 - redirection support: `#REDIRECT[[Home]]`
 
+**See also [claudioc/jingo README](https://github.com/claudioc/jingo)**
+
 ## Install
 ```sh
 git clone https://github.com/inventaire/jingo
 cd jingo
+# Use SSH cloning to be able to push on this repo
+git clone git@github.com:inventaire/inventaire-wiki.git data
 ```
-
-**See also [claudioc/jingo README](https://github.com/claudioc/jingo)**
+### Production
+Setup the prod config:
+```sh
+export JINGO_PATH=$PWD
+export JINGO_SECRET=$(head -c 30 /dev/urandom | base64)
+envsubst < config.prod.yaml.template > config.yaml
+```
