@@ -35,6 +35,7 @@
     "lib": "./lib/"
   },
   "dependencies": {
+    "add-to-systemd": "^2.1.2",
     "bluebird": "^2.3.11",
     "body-parser": "^1.10.0",
     "browserify": "^14.4.0",
@@ -84,7 +85,8 @@
     "start": "./jingo -c config.yaml",
     "watch": "./scripts/start_dev.sh",
     "build": "./scripts/build.sh",
-    "use-local-fonts": "./scripts/use_local_fonts.sh"
+    "use-local-fonts": "./scripts/use_local_fonts.sh",
+    "add-to-systemd": "./scripts/add_to_systemd.sh"
   },
   "engines": {
     "node": ">=0.8",
