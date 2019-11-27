@@ -2,6 +2,9 @@
 
 set -e
 
+mkdir -p ./public/js ./public/css
+
+
 # Pass an argument to ignore unnecessary steps in development mode
 DEVMODE=$1
 
