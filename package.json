@@ -67,7 +67,7 @@
     "uglifyjs": "^2.4.10"
   },
   "engines": {
-    "node": ">=0.8",
+    "node": ">=7.6",
     "npm": ">=1.1"
   },
   "keywords": [
