@@ -3,10 +3,9 @@ var router = require('express').Router()
 var renderer = require('../lib/renderer')
 var fs = require('fs')
 var models = require('../lib/models')
-var Promiser = require('bluebird')
 // using fs.access instead of the deprecated fs.exists:
 // https://nodejs.org/api/fs.html#fs_fs_exists_path_callback
-var exists = Promiser.promisify(fs.access)
+var exists = fs.promises.access
 
 models.use(Git)
 
@@ -32,7 +31,7 @@ function _getExistence (req, res) {
 
   var result = []
 
-  Promiser.all(req.query.data.map(function (pageName) {
+  Promise.all(req.query.data.map(function (pageName) {
     // Prevent passing page names with url hashes
     var cleanedName = pageName.split('#')[0]
     var page = new models.Page(cleanedName)
