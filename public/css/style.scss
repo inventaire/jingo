@@ -750,9 +750,26 @@ a.btn-auth:hover {
 
 /*Large screens*/
 @media screen and (min-width: 768px) {
+  .bg-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30em;
+    background-image: url(/img/brittanystevens-1200.jpg);
+    background-size: cover;
+    background-position: center center;
+    opacity: 0.6;
+    box-shadow: inset 0 -10px 10px -10px #000000;
+  }
+
   p.user {
     margin-right: auto;
     display: inline-block;
+  }
+
+  .container{
+    margin-top: 5em;
   }
 
   #content {
@@ -766,5 +783,12 @@ a.btn-auth:hover {
   #title-wrapper h1{
     // Prevent the header and #page-controls to overlap
     padding-right: 8em;
+  }
+}
+
+/*Large screens*/
+@media screen and (min-width: 1200px) {
+  .bg-img{
+    background-image: url(/img/brittanystevens-1600.jpg);
   }
 }
