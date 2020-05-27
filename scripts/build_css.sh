@@ -24,7 +24,14 @@ mkdir -p ./public/vendor/fonts
 cp ./node_modules/font-awesome/fonts/* ./public/vendor/fonts
 
 echo '---- CSS SRC FILES'
-addFile ./public/vendor/bootstrap/css/bootstrap.min.css $CSS_BUNDLE
+cat ./public/vendor/bootstrap/css/bootstrap.min.css > $CSS_BUNDLE
+
+# This is sometimes failing for some reason
+if [ "$(cat ./public/vendor/bootstrap/css/bootstrap.min.css | wc -l)" != "$(cat $CSS_BUNDLE  | wc -l)" ] ; then
+  echo "FAILED TO ADD Bootstrap"
+  exit 1
+fi
+
 ./node_modules/.bin/node-sass ./public/css/style.scss > ./public/css/style.css
 addFile ./public/css/style.css $CSS_BUNDLE
 addFile ./public/css/ionicons.min.css $CSS_BUNDLE

@@ -3,6 +3,7 @@
 logsize(){ [ $DEVMODE ] || du -sh $@ ; }
 
 addFile(){
+  echo "add file $1 -> $2"
   logsize $1
   cat $1 >> $2
   echo -e '\n' >> $2
