@@ -8,12 +8,16 @@
     "jingo": "./jingo"
   },
   "scripts": {
+    "add-to-systemd": "./scripts/add_to_systemd.sh",
     "test": "mocha test/spec",
     "start": "./jingo -c config.yaml",
-    "watch": "./scripts/start_dev.sh",
     "build": "./scripts/build.sh",
+    "build-css": "./scripts/build_css.sh",
+    "build-js": "./scripts/build_js.sh",
     "use-local-fonts": "./scripts/use_local_fonts.sh",
-    "add-to-systemd": "./scripts/add_to_systemd.sh"
+    "watch": "nodemon ./jingo -c config.yaml",
+    "watch-css": "./scripts/watch_css.sh",
+    "watch-js": "./scripts/watch_js.sh"
   },
   "repository": {
     "type": "git",
@@ -56,13 +60,10 @@
     "transliteration": "^0.1.1"
   },
   "devDependencies": {
-    "autoprefixer": "^6.6.0",
     "chai": "^4.2.0",
-    "cssnano": "^3.9.1",
     "mocha": "^7.2.0",
     "node-sass": "^4.14.1",
     "nodemon": "^1.19.4",
-    "postcss-cli": "^2.6.0",
     "sinon": "^1.10.3",
     "uglifyjs": "^2.4.10"
   },
