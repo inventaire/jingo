@@ -23,6 +23,8 @@ include mixins/links
       meta(name="description", property="og:description", content="#{coalesce(description, '')}")
       meta(property="og:image", content="#{coalesce(image, 'https://wiki.inventaire.io/img/screenshot.png')}")
 
+      link(rel="alternate", type="application/atom+xml", href="https://wiki.inventaire.io/blog.rss")
+
       +asset("/css/bundle.min.css")
       link(rel="icon", type="image/png", href="/img/inv-dark-grey-32px.png")
       block styles
