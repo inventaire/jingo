@@ -23,7 +23,11 @@ function parseLangContent (content) {
   var parts = content.split('-->')
   var header = parts[0]
   var html = parts[1]
-  var match = header.match(/\s*(\w+),\s*(.*)/)
+
+  // Support both
+  // <!-- LANG:EN -->
+  // <!-- LANG:FR, title="Accueil" -->
+  var match = header.match(/\s*(\w+),\s*(.*)/) || header.match(/\s*(\w+)/)
   var lang, metadata
   if (match) {
     lang = match[1]
@@ -37,5 +41,3 @@ function parseLangContent (content) {
 
   return langData
 }
-
-function trim (str) { return str.trim() }
