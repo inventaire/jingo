@@ -792,3 +792,13 @@ a.btn-auth:hover {
     background-image: url(/img/brittanystevens-1600.jpg);
   }
 }
+
+
+#inner-content-wrapper{
+  ol{
+    a img{
+      max-height: 30em;
+      max-width: 30em;
+    }
+  }
+}

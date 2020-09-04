@@ -1,7 +1,10 @@
 .container{
-  a:not(.fa)[href^="https://"], a:not(.fa)[href^="http://"] {
+  a:not(.fa):not([href^="https://user-images.githubusercontent.com"])[href^="http"]{
     background: url(../img/ext.png) center right no-repeat;
     padding-right: 13px;
+  }
+  a[href^="https://user-images.githubusercontent.com"]{
+    cursor: zoom-in;
   }
 }
 
