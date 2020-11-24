@@ -1,4 +1,8 @@
 # Jingo
+| :warning: ARCHIVE          |
+|:---------------------------|
+| Wiki [has moved](https://github.com/inventaire/inventaire-mediawiki). [Here](https://github.com/inventaire/jingo/issues/2)'s why. This repository is here for archive reasons. |
+
 
 Node.js based Wiki, customized for the needs of inventaire.io https://wiki.inventaire.io
 
